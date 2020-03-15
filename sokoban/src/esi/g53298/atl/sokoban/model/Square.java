@@ -1,4 +1,4 @@
-package esi.g53298.atl.model;
+package esi.g53298.atl.sokoban.model;
 
 /**
  *
