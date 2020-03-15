@@ -17,7 +17,21 @@ public class Movable {
         SYMBOL = type.getSymbol();
     }
     
+    /**
+     * 
+     * @return the type of the movable object
+     */
     public MovableType geType(){
         return type;
     }
+    
+    /**
+     * 
+     * @return the symbol of the movable object
+     */
+    public String getSymbol(){
+        return SYMBOL;
+    }
+    
+    
 }
