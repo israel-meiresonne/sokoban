@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Maze {
 
     private Square[][] maze;
+    private Position playerPosition;
 
     /**
      * Constructor
@@ -23,7 +24,7 @@ public class Maze {
 
     /**
      * Fill the maze with all element (wall, box, player, and depot) indicated
-     * by the xsb file
+     * by the xsb file and set the playerPosition attribut
      * @param level the level to play
      * @return the maze filled
      */
@@ -33,7 +34,7 @@ public class Maze {
         File levelFile = new File(levelDir + fileName);
 
         Scanner myReader = new Scanner(levelFile);
-        int nbLine = 0;
+        int nbRow = 0;
         int maxCol = 0;
         
         while (myReader.hasNextLine()) {
@@ -42,12 +43,12 @@ public class Maze {
             if(nbCol > maxCol){
                 maxCol = nbCol;
             }
-            nbLine++;
+            nbRow++;
         }
         
         myReader.reset();
-        Square[][] maze = new Square[nbLine][maxCol];
-        int line = 0;
+        Square[][] maze = new Square[nbRow][maxCol];
+        int row = 0;
         while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
             int nbCol = data.length();
@@ -58,40 +59,41 @@ public class Maze {
                     String element =String.valueOf(elementChar);  
                     switch(element){
                         case " ":
-                            maze[line][col] = new Square(SquareType.Empty);
+                            maze[row][col] = new Square(SquareType.Empty);
                             break;
                         case "#":
-                            maze[line][col] = new Square(SquareType.Wall);
+                            maze[row][col] = new Square(SquareType.Wall);
                             break;
                         case "$":
-                            maze[line][col] = new Square(SquareType.Empty);
+                            maze[row][col] = new Square(SquareType.Empty);
                             Box box = new Box();
-                            maze[line][col].addMovable(box);
+                            maze[row][col].addMovable(box);
                             break;
                         case ".":
-                            maze[line][col] = new Square(SquareType.Goal);
+                            maze[row][col] = new Square(SquareType.Goal);
                             break;
                         case "*":
-                            maze[line][col] = new Square(SquareType.Goal);
+                            maze[row][col] = new Square(SquareType.Goal);
                             box = new Box();
-                            maze[line][col].addMovable(box);
+                            maze[row][col].addMovable(box);
                             break;
                         case "@":
-                            maze[line][col] = new Square(SquareType.Empty);
+                            maze[row][col] = new Square(SquareType.Empty);
                             Player player = new Player();
-                            maze[line][col].addMovable(player);
+                            playerPosition = new Position(row, col);
+                            maze[row][col].addMovable(player);
                             break;
                         case "+":
-                            maze[line][col] = new Square(SquareType.Goal);
+                            maze[row][col] = new Square(SquareType.Goal);
                             player = new Player();
-                            maze[line][col].addMovable(player);
+                            maze[row][col].addMovable(player);
                             break;
                     }
                 } else {
-                    maze[line][col] = new Square(SquareType.Empty);
+                    maze[row][col] = new Square(SquareType.Empty);
                 }
             }
-            line++;
+            row++;
         }
         
         return maze;
