@@ -1,5 +1,7 @@
 package esi.g53298.atl.sokoban.model;
 
+import static esi.g53298.atl.sokoban.model.MovableType.BOX;
+
 /**
  *
  * @author israelmeiresonne
@@ -8,6 +10,7 @@ public class Square {
 
     private SquareType type;
     private Movable movable;
+    public static final String ANSI_RED = "\u001B[31m";
 
     /**
      * Constructor
@@ -20,18 +23,18 @@ public class Square {
     }
 
     /**
-     * 
+     *
      * @return the movable attribut
      */
     public Movable getMovable() {
         return movable;
     }
-    
+
     /**
-     * 
+     *
      * @return the type of the square
      */
-    public SquareType getType(){
+    public SquareType getType() {
         return type;
     }
 
@@ -54,29 +57,51 @@ public class Square {
         }
         this.movable = movable;
     }
-    
+
     /**
      * Set the movable attribut to null
      */
-    public void leaveSquare(){
+    public void leaveSquare() {
         movable = null;
     }
-    
+
     /**
      * Check if the square can receive a movable
-     * @return true if the square isn't a wall or don't has a movable object 
+     *
+     * @return true if the square isn't a wall or don't has a movable object
      * already else false
      */
-    public boolean isFree(){
+    public boolean isFree() {
         return !(type == SquareType.Wall || movable != null);
     }
-    
+
     /**
      * Check if the movable is a Box
-     * @return 
+     *
+     * @return
      */
-    public boolean isBox(){
+    public boolean isBox() {
         return movable.geType() == MovableType.BOX;
+    }
+
+    /**
+     *
+     * @return the symbol of the square or its movable object
+     */
+    public String contentSymbol() {
+        switch (type) {
+            case Goal:
+                if (movable == null) {
+                    return ".";
+                } else {
+                    return (movable.geType() == BOX)
+                            ? (ANSI_RED + movable.getSymbol()) : "+";
+                }
+            case Empty:
+                return (movable == null) ? " " : movable.getSymbol();
+            case Wall:
+                return "#";
+        }
     }
 
 }
