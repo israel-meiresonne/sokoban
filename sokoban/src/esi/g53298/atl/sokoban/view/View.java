@@ -1,5 +1,7 @@
 package esi.g53298.atl.sokoban.view;
 
+import esi.g53298.atl.sokoban.model.Maze;
+import esi.g53298.atl.sokoban.model.Square;
 import java.util.Scanner;
 
 /**
@@ -21,7 +23,7 @@ public class View {
      * displays a welcome message
      */
     public void initialize() {
-        System.out.println("Bienvenue sur Sokoban\n Choisis ton niveau");
+        System.out.println("Bienvenue sur Sokoban");
     }
 
     /**
@@ -54,6 +56,21 @@ public class View {
         System.out.println("       Abandonner la partie: give up");
         System.out.println();
     }
+    
+    /**
+     * Display the maze
+     * @param maze 
+     */
+    public void displayMaze(Square[][] maze){
+        int nbRow = maze.length;
+        int nbCol = maze[0].length;
+        for(int row = 0; row < nbRow; row++){
+            for(int col = 0; col < nbCol; col++){
+                System.out.print(maze[row][col].contentSymbol());
+            }
+            System.out.println();
+        }
+    }
 
     /**
      * ask to enter a command and return this command
@@ -64,5 +81,33 @@ public class View {
         System.out.println("Entrer votre commande");
         String cmd = in.nextLine();
         return cmd;
+    }
+    
+    /**
+     * ask to enter a command and return this command
+     *
+     * @return a String commande
+     */
+    public int askLevel() {
+        System.out.println("Choisis un niveau");
+        String level = in.nextLine();
+        return checkInt(level, "Le niveau est incorrect!");
+    }
+    
+        /**
+     * Convert string to int if it convertible else throw an error with the 
+     * message passed in param
+     * @param str the string to convert to int
+     * @param errorMsg the error message to throw if the string is 
+     * unconvertible to int
+     * @return a int conersion double the string passed in param
+     * @throws IllegalArgumentException if the string is unconvertible to int
+     */
+    private int checkInt(String str, String errorMsg) {
+        try {
+            return Integer.parseInt(str);
+        } catch (Throwable e) {
+            throw new IllegalArgumentException(errorMsg);
+        }
     }
 }
