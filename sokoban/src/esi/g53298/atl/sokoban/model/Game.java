@@ -19,6 +19,10 @@ public class Game {
     public Game(int level) throws FileNotFoundException {
         this.maze = new Maze(level);
     }
+    
+    public Square[][] getMaze(){
+        return maze.getMaze();
+    }
 
     /**
      * Check if the level is successful by check if all box is in a gaol square

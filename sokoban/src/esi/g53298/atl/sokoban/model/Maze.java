@@ -111,6 +111,10 @@ public class Maze {
         return maze;
     }
 
+    public Square[][] getMaze(){
+        return maze;
+    }
+    
     /**
      * Allows to move the player to a new position and update the playerPosition
      * attribut
