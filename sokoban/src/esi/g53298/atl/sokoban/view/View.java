@@ -2,6 +2,7 @@ package esi.g53298.atl.sokoban.view;
 
 import esi.g53298.atl.sokoban.model.Maze;
 import esi.g53298.atl.sokoban.model.Square;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -110,4 +111,11 @@ public class View {
             throw new IllegalArgumentException(errorMsg);
         }
     }
+    
+//    public static void main(String args[]) throws FileNotFoundException{
+//        Maze maze = new Maze(1);
+//        View view = new View();
+//        Square[][] sq = maze.getMaze();
+//        view.displayMaze(maze.getMaze());
+//    }
 }

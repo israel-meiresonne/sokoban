@@ -28,8 +28,8 @@ public class Maze {
      */
     public Maze(int level) throws FileNotFoundException {
         this.level = level;
+        gaols = new ArrayList<Square>();
         maze = buildMaze(this.level);
-        gaols = new ArrayList();
     }
 
     /**
@@ -56,8 +56,8 @@ public class Maze {
             }
             nbRow++;
         }
-
-        myReader.reset();
+        myReader.close();
+        myReader = new Scanner(levelFile);
         Square[][] maze = new Square[nbRow][maxCol];
         int row = 0;
         while (myReader.hasNextLine()) {
@@ -107,14 +107,15 @@ public class Maze {
             }
             row++;
         }
+        myReader.close();
 
         return maze;
     }
 
-    public Square[][] getMaze(){
+    public Square[][] getMaze() {
         return maze;
     }
-    
+
     /**
      * Allows to move the player to a new position and update the playerPosition
      * attribut
@@ -133,20 +134,21 @@ public class Maze {
         maze[holdRow][holdColumn].leaveSquare();
         playerPosition = newPosition;
     }
-    
+
     /**
      * Move a Box to a new Position if this Position is free
+     *
      * @param boxPosition Box's current Position in maze
      * @param newBoxPosition Position where to move the box
      * @return true if the Box was move else false
      */
-    private boolean moveBox(Position boxPosition, Position newBoxPosition){
+    private boolean moveBox(Position boxPosition, Position newBoxPosition) {
         int boxRow = boxPosition.getRow();
         int boxColumn = boxPosition.getColumn();
         int newbBoxRow = newBoxPosition.getRow();
         int newbBoxColumn = newBoxPosition.getColumn();
-        
-        if(maze[newbBoxRow][newbBoxColumn].isFree()){
+
+        if (maze[newbBoxRow][newbBoxColumn].isFree()) {
             Movable box = maze[boxRow][boxColumn].getMovable();
             maze[newbBoxRow][newbBoxColumn].put(box);
             maze[boxRow][boxColumn].leaveSquare();
@@ -157,6 +159,7 @@ public class Maze {
 
     /**
      * Manage the player's moves in the four direction (UP, DOWN, LEFT, RIGHT)
+     *
      * @param direction an enum witch indicate the direction to move
      */
     private void treatMove(Direction direction) {
@@ -218,26 +221,34 @@ public class Maze {
     public void moveDown() {
         treatMove(DOWN);
     }
-    
+
     /**
      * Check if the level is successful by check if all box is in a gaol square
+     *
      * @return true if the level successful else false
      */
-    public boolean isWin(){
-        for(Square sq : gaols){
-            if(!sq.isBox()){
+    public boolean isWin() {
+        for (Square sq : gaols) {
+            if (!sq.isBox()) {
                 return false;
             }
         }
         return true;
     }
-    
+
     /**
      * Restar the level by rebuilding the maze
-     * @throws FileNotFoundException 
+     *
+     * @throws FileNotFoundException
      */
-    public void restarLevel() throws FileNotFoundException{
+    public void restarLevel() throws FileNotFoundException {
         maze = buildMaze(level);
     }
+
+//    public static void main(String args[]) throws FileNotFoundException {
+//        Maze maze = new Maze(1);
+//        Square[][] sq = maze.getMaze();
+//
+//    }
 
 }
