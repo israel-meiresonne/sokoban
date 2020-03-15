@@ -7,6 +7,7 @@ import static esi.g53298.atl.sokoban.model.Direction.UP;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,8 @@ public class Maze {
 
     private Square[][] maze;
     private Position playerPosition;
+    private ArrayList<Square> gaols;
+    private final int level;
 
     /**
      * Constructor
@@ -24,7 +27,9 @@ public class Maze {
      * @param level
      */
     public Maze(int level) throws FileNotFoundException {
-        maze = buildMaze(level);
+        this.level = level;
+        maze = buildMaze(this.level);
+        gaols = new ArrayList();
     }
 
     /**
@@ -77,6 +82,7 @@ public class Maze {
                             break;
                         case ".":
                             maze[row][col] = new Square(SquareType.Goal);
+                            gaols.add(maze[row][col]);
                             break;
                         case "*":
                             maze[row][col] = new Square(SquareType.Goal);
@@ -207,6 +213,27 @@ public class Maze {
      */
     public void moveDown() {
         treatMove(DOWN);
+    }
+    
+    /**
+     * Check if the level is successful by check if all box is in a gaol square
+     * @return true if the level successful else false
+     */
+    public boolean isWin(){
+        for(Square sq : gaols){
+            if(!sq.isBox()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Restar the level by rebuilding the maze
+     * @throws FileNotFoundException 
+     */
+    public void restarLevel() throws FileNotFoundException{
+        maze = buildMaze(level);
     }
 
 }
