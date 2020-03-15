@@ -118,8 +118,8 @@ public class Maze {
         int holdRow = playerPosition.getRow();
         int holdColumn = playerPosition.getColumn();
 
-        Player player = maze[holdRow][holdColumn].getMovable();
-        maze[newRow][newColumn].put(player);
+        Movable movable = maze[holdRow][holdColumn].getMovable();
+        maze[newRow][newColumn].put(movable);
         maze[holdRow][holdColumn].leaveSquare();
         playerPosition = newPosition;
     }
@@ -137,8 +137,8 @@ public class Maze {
         int newbBoxColumn = newBoxPosition.getColumn();
         
         if(maze[newbBoxRow][newbBoxColumn].isFree()){
-            Box box = maze[boxRow][boxColumn].getMovable();
-            maze[newbBoxRow][newbBoxColumn].put(box);
+            Movable movable = maze[boxRow][boxColumn].getMovable();
+            maze[newbBoxRow][newbBoxColumn].put(movable);
             maze[boxRow][boxColumn].leaveSquare();
             return true;
         }
@@ -167,7 +167,7 @@ public class Maze {
                     Position newBoxpos = new Position(newRow + direction.getRow(),
                             newColumn + direction.getColumn());
 
-                    if (maze.moveBox(boxpos, newBoxpos)) {
+                    if (moveBox(boxpos, newBoxpos)) {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
                     } else {

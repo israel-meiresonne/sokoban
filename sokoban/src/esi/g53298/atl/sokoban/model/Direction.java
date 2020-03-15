@@ -39,9 +39,8 @@ public enum Direction {
         return column;
     }
     
-    public static void main(String args[]){
-        ;
-        System.out.println(UP.getRow());
-    }
-
+//    public static void main(String args[]){
+//        ;
+//        System.out.println(UP.getRow());
+//    }
 }
