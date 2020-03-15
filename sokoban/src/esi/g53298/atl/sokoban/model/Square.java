@@ -88,20 +88,26 @@ public class Square {
      *
      * @return the symbol of the square or its movable object
      */
-    public String contentSymbol() {
+    public String getContentSymbol() {
+        String symbol = "";
         switch (type) {
             case Goal:
                 if (movable == null) {
-                    return ".";
+                    symbol = ".";
                 } else {
                     return (movable.geType() == BOX)
                             ? (ANSI_RED + movable.getSymbol()) : "+";
                 }
+                break;
             case Empty:
-                return (movable == null) ? " " : movable.getSymbol();
+                symbol = (movable == null) ? " " : movable.getSymbol();
+                break;
             case Wall:
-                return "#";
+                symbol = "#";
+                break;
         }
+        
+        return symbol;
     }
 
 }
