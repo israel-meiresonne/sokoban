@@ -1,5 +1,7 @@
 package esi.g53298.atl.sokoban.model;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author israelmeiresonne
@@ -7,7 +9,7 @@ package esi.g53298.atl.sokoban.model;
 public class Game {
     private Maze maze;
     
-    public Game(int level){
+    public Game(int level) throws FileNotFoundException{
         this.maze = new Maze(level);
     }
 }
