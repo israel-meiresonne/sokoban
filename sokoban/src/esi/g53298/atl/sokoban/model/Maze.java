@@ -72,7 +72,7 @@ public class Maze {
                             break;
                         case "$":
                             maze[row][col] = new Square(SquareType.Empty);
-                            Box box = new Box();
+                            Movable box = new Movable(MovableType.BOX);
                             maze[row][col].put(box);
                             break;
                         case ".":
@@ -80,18 +80,18 @@ public class Maze {
                             break;
                         case "*":
                             maze[row][col] = new Square(SquareType.Goal);
-                            box = new Box();
+                            box = new Movable(MovableType.BOX);
                             maze[row][col].put(box);
                             break;
                         case "@":
                             maze[row][col] = new Square(SquareType.Empty);
-                            Player player = new Player();
+                            Movable player = new Movable(MovableType.PLAYER);
                             playerPosition = new Position(row, col);
                             maze[row][col].put(player);
                             break;
                         case "+":
                             maze[row][col] = new Square(SquareType.Goal);
-                            player = new Player();
+                            player = new Movable(MovableType.PLAYER);
                             maze[row][col].put(player);
                             break;
                     }
@@ -118,8 +118,8 @@ public class Maze {
         int holdRow = playerPosition.getRow();
         int holdColumn = playerPosition.getColumn();
 
-        Movable movable = maze[holdRow][holdColumn].getMovable();
-        maze[newRow][newColumn].put(movable);
+        Movable player = maze[holdRow][holdColumn].getMovable();
+        maze[newRow][newColumn].put(player);
         maze[holdRow][holdColumn].leaveSquare();
         playerPosition = newPosition;
     }
@@ -137,8 +137,8 @@ public class Maze {
         int newbBoxColumn = newBoxPosition.getColumn();
         
         if(maze[newbBoxRow][newbBoxColumn].isFree()){
-            Movable movable = maze[boxRow][boxColumn].getMovable();
-            maze[newbBoxRow][newbBoxColumn].put(movable);
+            Movable box = maze[boxRow][boxColumn].getMovable();
+            maze[newbBoxRow][newbBoxColumn].put(box);
             maze[boxRow][boxColumn].leaveSquare();
             return true;
         }
