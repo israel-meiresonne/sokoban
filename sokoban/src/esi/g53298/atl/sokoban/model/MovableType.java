@@ -5,7 +5,7 @@ package esi.g53298.atl.sokoban.model;
  * @author israelmeiresonne
  */
 public enum MovableType {
-    BOX("$"), Player("@");
+    BOX("$"), PLAYER("@");
     
     private String symbol;
     
