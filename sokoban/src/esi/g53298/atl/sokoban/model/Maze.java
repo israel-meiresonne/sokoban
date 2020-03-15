@@ -41,7 +41,7 @@ public class Maze {
      */
     private Square[][] buildMaze(int level) throws FileNotFoundException {
         String levelDir = System.getProperty("user.dir") + "/../level";
-        String fileName = "level" + level + ".xsb";
+        String fileName = "/level" + level + ".xsb";
         File levelFile = new File(levelDir + fileName);
 
         Scanner myReader = new Scanner(levelFile);
