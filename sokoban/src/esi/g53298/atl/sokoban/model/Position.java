@@ -17,4 +17,23 @@ public class Position {
         this.row = row;
         this.column = column;
     }
+    
+    /**
+     * give the row of a Position's instance
+     *
+     * @return the row of a Position's instance
+     */
+    public int getRow() {
+        return row;
+    }
+    
+    /**
+     * give the column of a Position's instance
+     *
+     * @return the column of a Position's instance
+     */
+    public int getColumn() {
+        return column;
+    }
+
 }
