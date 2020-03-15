@@ -23,6 +23,37 @@ public class Game {
     public Square[][] getMaze(){
         return maze.getMaze();
     }
+    
+        /**
+     * Ollows to move the player to left by checking if the left square isn(t a
+     * wall and if it free
+     *
+     * @throws IllegalStateException if the left Square is a wall
+     */
+    public void moveLeft() {
+        maze.moveLeft();
+    }
+
+    /**
+     * Ollows to move the player to right
+     */
+    public void moveRight() {
+        maze.moveRight();
+    }
+
+    /**
+     * Ollows to move the player to up
+     */
+    public void moveUp() {
+        maze.moveUp();
+    }
+
+    /**
+     * Ollows to move the player to left
+     */
+    public void moveDown() {
+        maze.moveDown();
+    }
 
     /**
      * Check if the level is successful by check if all box is in a gaol square
