@@ -4,6 +4,7 @@ import static esi.g53298.atl.sokoban.model.Direction.DOWN;
 import static esi.g53298.atl.sokoban.model.Direction.LEFT;
 import static esi.g53298.atl.sokoban.model.Direction.RIGHT;
 import static esi.g53298.atl.sokoban.model.Direction.UP;
+import esi.g53298.atl.sokoban.view.View;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -168,7 +169,7 @@ public class Maze {
 
         SquareType type = maze[newRow][newColumn].getType();
         if (type == SquareType.Wall) {
-            throw new IllegalStateException("You can't move left, there "
+            throw new IllegalStateException("You can't move "+ direction.toString() +", there "
                     + "is a wall");
         } else {
             if (maze[newRow][newColumn].isFree()) {
@@ -245,10 +246,11 @@ public class Maze {
         maze = buildMaze(level);
     }
 
-//    public static void main(String args[]) throws FileNotFoundException {
-//        Maze maze = new Maze(1);
-//        Square[][] sq = maze.getMaze();
-//
-//    }
+    public static void main(String args[]) throws FileNotFoundException {
+        Maze maze = new Maze(1);
+        maze.moveUp();
+        View view = new View();
+        view.displayMaze(maze.getMaze());
+    }
 
 }

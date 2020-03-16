@@ -47,16 +47,16 @@ public class Controller {
 
     private void treatMove(String dir) {
         switch (dir) {
-            case "U":
+            case "u":
                 game.moveUp();
                 break;
-            case "D":
+            case "d":
                 game.moveDown();
                 break;
-            case "L":
+            case "l":
                 game.moveLeft();
                 break;
-            case "R":
+            case "r":
                 game.moveRight();
                 break;
         }
