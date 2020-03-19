@@ -26,6 +26,13 @@ public class View {
     public void initialize() {
         System.out.println("Bienvenue sur Sokoban");
     }
+    
+    /**
+     * displays a level success message
+     */
+    public void displaySuccess() {
+        System.out.println("Bravo! Tu as réussi le niveau");
+    }
 
     /**
      * Displays a goodbye message
@@ -48,13 +55,15 @@ public class View {
      */
     public void displayHelp() {
         System.out.println("Usage:");
-        System.out.println("       Bouger vers le haut: move U");
-        System.out.println("       Bouger vers le bas: move D");
-        System.out.println("       Bouger vers le gauche: move L");
-        System.out.println("       Bouger vers le droite: move R");
+        System.out.println("       Bouger vers le haut: move u");
+        System.out.println("       Bouger vers le bas: move d");
+        System.out.println("       Bouger vers le gauche: move l");
+        System.out.println("       Bouger vers le droite: move r");
+        System.out.println("       Abandonner la partie: giveup");
+        System.out.println("       Choisir un niveau: level");
         System.out.println("       Recommencer le niveau: restart");
         System.out.println("       Afficher l'aide: help");
-        System.out.println("       Abandonner la partie: give up");
+        System.out.println("       Quitter le jeu: quit");
         System.out.println();
     }
     
