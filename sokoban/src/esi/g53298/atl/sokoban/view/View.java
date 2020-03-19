@@ -59,6 +59,8 @@ public class View {
         System.out.println("       Bouger vers le bas: move d");
         System.out.println("       Bouger vers le gauche: move l");
         System.out.println("       Bouger vers le droite: move r");
+        System.out.println("       Annuler le dernier mouvement: undo");
+        System.out.println("       Retablir le dernier mouvement: redo");
         System.out.println("       Abandonner la partie: giveup");
         System.out.println("       Choisir un niveau: level");
         System.out.println("       Recommencer le niveau: restart");

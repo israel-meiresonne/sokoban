@@ -92,4 +92,18 @@ public class Game {
         return maze == null;
     }
 
+    /**
+     * Undo the last move witch worked
+     */
+    public void undoMove() {
+        maze.undoMove();
+    }
+
+    /**
+     * Redo the last undone move
+     */
+    public void redoMove() {
+        maze.redoMove();
+    }
+
 }
