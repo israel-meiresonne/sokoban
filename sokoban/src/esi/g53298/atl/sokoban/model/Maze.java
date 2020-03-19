@@ -174,13 +174,11 @@ public class Maze {
         int newColumn = playerPosition.getColumn() + direction.getColumn();
 
         SquareType type = maze[newRow][newColumn].getType();
-        if (type == SquareType.Wall) {
-//            throw new IllegalStateException("You can't move "+ direction.toString() +", there "
-//                    + "is a wall");
-        } else {
+        if (type != SquareType.Wall) {
             if (maze[newRow][newColumn].isFree()) {
                 Position newPosition = new Position(newRow, newColumn);
                 movePlayer(newPosition);
+                doneMoves.push(new Move(direction, false));
             } else {
                 if (maze[newRow][newColumn].isBox()) {
                     Position boxpos = new Position(newRow, newColumn);
@@ -190,10 +188,8 @@ public class Maze {
                     if (moveBox(boxpos, newBoxpos)) {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
+                        doneMoves.push(new Move(direction, false));
                     }
-                    /*else {
-                        throw new IllegalStateException("This box can't move");
-                    }*/
                 }
             }
         }
@@ -229,20 +225,36 @@ public class Maze {
     public void moveDown() {
         treatMove(DOWN);
     }
-    
-   
+
     /**
      * Undo the last move witch worked
      */
-    public void undoMove(){
+    public void undoMove() {
+        Move lastMove = doneMoves.pop();
+        Direction lastMoveDir = lastMove.getDirection();
+        Direction oppositeDir = lastMoveDir.getOpposite();
+        int newRow = playerPosition.getRow() + oppositeDir.getRow();
+        int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
+        Position lastPosition = new Position(newRow, newCol);
+        movePlayer(lastPosition);
         
+        if(lastMove.getBoxMoved()){
+            Position newBoxPos = playerPosition; /*line useless for code but 
+                                        used for understanding the process */
+            int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
+            int currentBoxCol = newBoxPos.getColumn()+ lastMoveDir.getColumn();
+            Position boxPosition = new Position(currentBoxRow, currentBoxCol);
+            moveBox(boxPosition, newBoxPos);
+        }
+        undoMoves.push(lastMove);
     }
-    
+
     /**
      * Redo the last undone move
      */
-    public void redoMove(){
-        
+    public void redoMove() {
+       Move undoneMove = undoMoves.pop();
+       treatMove(undoneMove.getDirection());
     }
 
     /**
