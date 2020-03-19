@@ -54,9 +54,11 @@ public class Controller {
                 break;
             case "undo":
                 game.undoMove();
+                view.displayMaze(game.getMaze());
                 break;
             case "redo":
                 game.redoMove();
+                view.displayMaze(game.getMaze());
                 break;
             case "giveup":
                 game.giveUp();

@@ -230,31 +230,36 @@ public class Maze {
      * Undo the last move witch worked
      */
     public void undoMove() {
-        Move lastMove = doneMoves.pop();
-        Direction lastMoveDir = lastMove.getDirection();
-        Direction oppositeDir = lastMoveDir.getOpposite();
-        int newRow = playerPosition.getRow() + oppositeDir.getRow();
-        int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
-        Position lastPosition = new Position(newRow, newCol);
-        movePlayer(lastPosition);
-        
-        if(lastMove.getBoxMoved()){
-            Position newBoxPos = playerPosition; /*line useless for code but 
+        if (!doneMoves.empty()) {
+            Move lastMove = doneMoves.pop();
+            Direction lastMoveDir = lastMove.getDirection();
+            Direction oppositeDir = lastMoveDir.getOpposite();
+            int newRow = playerPosition.getRow() + oppositeDir.getRow();
+            int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
+            Position lastPosition = new Position(newRow, newCol);
+            movePlayer(lastPosition);
+
+            if (lastMove.getBoxMoved()) {
+                Position newBoxPos = playerPosition;
+                /*line useless for code but 
                                         used for understanding the process */
-            int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
-            int currentBoxCol = newBoxPos.getColumn()+ lastMoveDir.getColumn();
-            Position boxPosition = new Position(currentBoxRow, currentBoxCol);
-            moveBox(boxPosition, newBoxPos);
+                int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
+                int currentBoxCol = newBoxPos.getColumn() + lastMoveDir.getColumn();
+                Position boxPosition = new Position(currentBoxRow, currentBoxCol);
+                moveBox(boxPosition, newBoxPos);
+            }
+            undoMoves.push(lastMove);
         }
-        undoMoves.push(lastMove);
     }
 
     /**
      * Redo the last undone move
      */
     public void redoMove() {
-       Move undoneMove = undoMoves.pop();
-       treatMove(undoneMove.getDirection());
+        if (!doneMoves.empty()) {
+            Move undoneMove = undoMoves.pop();
+            treatMove(undoneMove.getDirection());
+        }
     }
 
     /**
