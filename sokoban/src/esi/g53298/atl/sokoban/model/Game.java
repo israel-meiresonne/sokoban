@@ -78,5 +78,13 @@ public class Game {
     public void giveUp(){
         maze = null;
     }
+    
+    /**
+     * Check if the player has given up
+     * @return true if the game is given up else false
+     */
+    public boolean isGiveUp(){
+        return maze == null;
+    }
 
 }

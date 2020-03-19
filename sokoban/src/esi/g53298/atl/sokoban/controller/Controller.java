@@ -25,13 +25,24 @@ public class Controller {
         view.displayHelp();
         boolean isEnd = false;
         String cmd;
+
         while (!isEnd) {
-            cmd = this.view.askCommand().toLowerCase();
+            cmd = view.askCommand().toLowerCase();
             isEnd = treatCmd(cmd);
+            if (game.isWin()) {
+                view.displaySuccess();
+                cmd = view.askCommand().toLowerCase();
+                isEnd = treatCmd(cmd);
+            }
+            if (game.isGiveUp()) {
+                view.displayError("Tu as abandonnée la partie!");
+                cmd = this.view.askCommand().toLowerCase();
+                isEnd = treatCmd(cmd);
+            }
         }
     }
 
-    private boolean treatCmd(String cmd) {
+    private boolean treatCmd(String cmd) throws FileNotFoundException {
         String[] cmdTab = cmd.split(" ");
 
         switch (cmdTab[0]) {
@@ -39,8 +50,25 @@ public class Controller {
                 treatMove(cmdTab[1]);
                 view.displayMaze(game.getMaze());
                 break;
+            case "giveup":
+                game.giveUp();
+                break;
+            case "level":
+                int level = view.askLevel();
+                game = new Game(level);
+                view.displayMaze(game.getMaze());
+                view.displayHelp();
+                break;
+            case "restart":
+                game.restarLevel();
+                break;
+            case "help":
+                view.displayHelp();
+                break;
+            case "quit":
+                return true;
             default:
-                view.displayError("La commande '"+ cmdTab[0] +"' est incorrecte!");
+                view.displayError("La commande '" + cmdTab[0] + "' est incorrecte!");
         }
         return false;
     }
