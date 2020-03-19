@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  *
@@ -19,17 +20,22 @@ public class Maze {
 
     private Square[][] maze;
     private Position playerPosition;
-    private ArrayList<Square> gaols;
+    private final ArrayList<Square> gaols;
     private final int level;
+    private Stack<Move> doneMoves;
+    private Stack<Move> undoMoves;
 
     /**
      * Constructor
      *
      * @param level
+     * @throws java.io.FileNotFoundException if the file don't existe
      */
     public Maze(int level) throws FileNotFoundException {
         this.level = level;
-        gaols = new ArrayList<Square>();
+        gaols = new ArrayList<>();
+        doneMoves = new Stack<>();
+        undoMoves = new Stack<>();
         maze = buildMaze(this.level);
     }
 
@@ -184,7 +190,8 @@ public class Maze {
                     if (moveBox(boxpos, newBoxpos)) {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
-                    } /*else {
+                    }
+                    /*else {
                         throw new IllegalStateException("This box can't move");
                     }*/
                 }
@@ -222,6 +229,21 @@ public class Maze {
     public void moveDown() {
         treatMove(DOWN);
     }
+    
+   
+    /**
+     * Undo the last move witch worked
+     */
+    public void undoMove(){
+        
+    }
+    
+    /**
+     * Redo the last undone move
+     */
+    public void redoMove(){
+        
+    }
 
     /**
      * Check if the level is successful by check if all box is in a gaol square
@@ -252,5 +274,4 @@ public class Maze {
 //        View view = new View();
 //        view.displayMaze(maze.getMaze());
 //    }
-
 }
