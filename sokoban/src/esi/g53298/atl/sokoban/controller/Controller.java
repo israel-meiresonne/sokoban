@@ -52,6 +52,12 @@ public class Controller {
                 treatMove(cmdTab[1]);
                 view.displayMaze(game.getMaze());
                 break;
+            case "undo":
+                game.undoMove();
+                break;
+            case "redo":
+                game.redoMove();
+                break;
             case "giveup":
                 game.giveUp();
                 break;
