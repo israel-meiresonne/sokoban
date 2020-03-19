@@ -188,7 +188,7 @@ public class Maze {
                     if (moveBox(boxpos, newBoxpos)) {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
-                        doneMoves.push(new Move(direction, false));
+                        doneMoves.push(new Move(direction, true));
                     }
                 }
             }
@@ -203,6 +203,7 @@ public class Maze {
      */
     public void moveLeft() {
         treatMove(LEFT);
+        undoMoves = new Stack<>();
     }
 
     /**
@@ -210,6 +211,7 @@ public class Maze {
      */
     public void moveRight() {
         treatMove(RIGHT);
+        undoMoves = new Stack<>();
     }
 
     /**
@@ -217,6 +219,7 @@ public class Maze {
      */
     public void moveUp() {
         treatMove(UP);
+        undoMoves = new Stack<>();
     }
 
     /**
@@ -224,6 +227,7 @@ public class Maze {
      */
     public void moveDown() {
         treatMove(DOWN);
+        undoMoves = new Stack<>();
     }
 
     /**
@@ -231,18 +235,17 @@ public class Maze {
      */
     public void undoMove() {
         if (!doneMoves.empty()) {
+            Position newBoxPos = playerPosition; // if a box has been moved at 
+                                                //the last trun
             Move lastMove = doneMoves.pop();
             Direction lastMoveDir = lastMove.getDirection();
             Direction oppositeDir = lastMoveDir.getOpposite();
             int newRow = playerPosition.getRow() + oppositeDir.getRow();
             int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
-            Position lastPosition = new Position(newRow, newCol);
-            movePlayer(lastPosition);
+            Position newPosition = new Position(newRow, newCol);
+            movePlayer(newPosition);
 
             if (lastMove.getBoxMoved()) {
-                Position newBoxPos = playerPosition;
-                /*line useless for code but 
-                                        used for understanding the process */
                 int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
                 int currentBoxCol = newBoxPos.getColumn() + lastMoveDir.getColumn();
                 Position boxPosition = new Position(currentBoxRow, currentBoxCol);
@@ -256,7 +259,7 @@ public class Maze {
      * Redo the last undone move
      */
     public void redoMove() {
-        if (!doneMoves.empty()) {
+        if (!undoMoves.empty()) {
             Move undoneMove = undoMoves.pop();
             treatMove(undoneMove.getDirection());
         }

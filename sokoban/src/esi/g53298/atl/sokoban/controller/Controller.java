@@ -22,13 +22,13 @@ public class Controller {
 //        int level = 1;
         int level = view.askLevel();
         game = new Game(level);
-        view.displayMaze(game.getMaze());
         view.displayHelp();
+        view.displayMaze(game.getMaze());
         boolean isEnd = false;
         String cmd;
 
         while (!isEnd) {
-//            cmd = "giveup";
+//            cmd = "move u";
             cmd = view.askCommand().toLowerCase();
             isEnd = treatCmd(cmd);
             if (game.isWin()) {
@@ -41,6 +41,8 @@ public class Controller {
                 cmd = view.askCommand().toLowerCase();
                 isEnd = treatCmd(cmd);
             }
+//            cmd = "undo";
+//            isEnd = treatCmd(cmd);
         }
     }
 
@@ -66,13 +68,13 @@ public class Controller {
             case "level":
                 int level = view.askLevel();
                 game = new Game(level);
-                view.displayMaze(game.getMaze());
                 view.displayHelp();
+                view.displayMaze(game.getMaze());
                 break;
             case "restart":
                 game.restarLevel();
-                view.displayMaze(game.getMaze());
                 view.displayHelp();
+                view.displayMaze(game.getMaze());
                 break;
             case "help":
                 view.displayHelp();
