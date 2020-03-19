@@ -39,6 +39,31 @@ public enum Direction {
         return column;
     }
     
+    /**
+     * return the opposite direction of the current instance
+     */
+    public Direction getOpposite(){
+        Direction oppositeDir;
+       switch(this.toString()){
+           case "UP":
+               oppositeDir = DOWN;
+               break;
+           case "DOWN":
+               oppositeDir = UP;
+               break;
+           case "LEFT":
+               oppositeDir = RIGHT;
+               break;
+           case "RIGHT":
+               oppositeDir = LEFT;
+               break;
+           default:
+               throw new IllegalStateException("The direction don't match any "
+                       + "direction");
+       }
+       return oppositeDir;
+    }
+    
 //    public static void main(String args[]){
 //        ;
 //        System.out.println(UP.getRow());
