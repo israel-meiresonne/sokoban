@@ -40,7 +40,8 @@ public enum Direction {
     }
     
     /**
-     * return the opposite direction of the current instance
+     * To get the opposite direction of the current direction
+     * @return the opposite direction of the current instance
      */
     public Direction getOpposite(){
         Direction oppositeDir;
@@ -64,8 +65,8 @@ public enum Direction {
        return oppositeDir;
     }
     
-//    public static void main(String args[]){
-//        ;
-//        System.out.println(UP.getRow());
-//    }
+    public static void main(String args[]){
+        
+        System.out.println(LEFT.getOpposite());
+    }
 }
