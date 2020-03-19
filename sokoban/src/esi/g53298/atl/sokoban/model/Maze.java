@@ -169,8 +169,8 @@ public class Maze {
 
         SquareType type = maze[newRow][newColumn].getType();
         if (type == SquareType.Wall) {
-            throw new IllegalStateException("You can't move "+ direction.toString() +", there "
-                    + "is a wall");
+//            throw new IllegalStateException("You can't move "+ direction.toString() +", there "
+//                    + "is a wall");
         } else {
             if (maze[newRow][newColumn].isFree()) {
                 Position newPosition = new Position(newRow, newColumn);
@@ -184,9 +184,9 @@ public class Maze {
                     if (moveBox(boxpos, newBoxpos)) {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
-                    } else {
+                    } /*else {
                         throw new IllegalStateException("This box can't move");
-                    }
+                    }*/
                 }
             }
         }
@@ -246,11 +246,11 @@ public class Maze {
         maze = buildMaze(level);
     }
 
-    public static void main(String args[]) throws FileNotFoundException {
-        Maze maze = new Maze(1);
-        maze.moveUp();
-        View view = new View();
-        view.displayMaze(maze.getMaze());
-    }
+//    public static void main(String args[]) throws FileNotFoundException {
+//        Maze maze = new Maze(1);
+//        maze.moveUp();
+//        View view = new View();
+//        view.displayMaze(maze.getMaze());
+//    }
 
 }
