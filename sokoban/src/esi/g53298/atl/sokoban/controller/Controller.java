@@ -19,7 +19,7 @@ public class Controller {
 
     public void startGame() throws FileNotFoundException {
         view.initialize();
-        int level = view.askLevel();
+        int level = 1;//view.askLevel();
         game = new Game(level);
         view.displayMaze(game.getMaze());
         view.displayHelp();
@@ -27,7 +27,7 @@ public class Controller {
         String cmd;
 
         while (!isEnd) {
-            cmd = view.askCommand().toLowerCase();
+            cmd = "move u";//view.askCommand().toLowerCase();
             isEnd = treatCmd(cmd);
             if (game.isWin()) {
                 view.displaySuccess();

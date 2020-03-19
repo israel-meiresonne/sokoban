@@ -81,7 +81,10 @@ public class Square {
      * @return
      */
     public boolean isBox() {
-        return movable.geType() == MovableType.BOX;
+        if (movable != null) {
+            return movable.geType() == MovableType.BOX;
+        }
+        return false;
     }
 
     /**
@@ -106,7 +109,7 @@ public class Square {
                 symbol = "#";
                 break;
         }
-        
+
         return symbol;
     }
 
