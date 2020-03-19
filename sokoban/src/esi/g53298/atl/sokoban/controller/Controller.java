@@ -19,8 +19,8 @@ public class Controller {
 
     public void startGame() throws FileNotFoundException {
         view.initialize();
-        int level = 1;
-//        int level = view.askLevel();
+//        int level = 1;
+        int level = view.askLevel();
         game = new Game(level);
         view.displayMaze(game.getMaze());
         view.displayHelp();
@@ -28,8 +28,8 @@ public class Controller {
         String cmd;
 
         while (!isEnd) {
-            cmd = "giveup";
-//            cmd = view.askCommand().toLowerCase();
+//            cmd = "giveup";
+            cmd = view.askCommand().toLowerCase();
             isEnd = treatCmd(cmd);
             if (game.isWin()) {
                 view.displaySuccess();
@@ -63,6 +63,8 @@ public class Controller {
                 break;
             case "restart":
                 game.restarLevel();
+                view.displayMaze(game.getMaze());
+                view.displayHelp();
                 break;
             case "help":
                 view.displayHelp();
