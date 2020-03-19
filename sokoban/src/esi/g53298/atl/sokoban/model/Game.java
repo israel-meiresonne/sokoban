@@ -19,12 +19,12 @@ public class Game {
     public Game(int level) throws FileNotFoundException {
         this.maze = new Maze(level);
     }
-    
-    public Square[][] getMaze(){
+
+    public Square[][] getMaze() {
         return maze.getMaze();
     }
-    
-        /**
+
+    /**
      * Ollows to move the player to left by checking if the left square isn(t a
      * wall and if it free
      *
@@ -61,29 +61,34 @@ public class Game {
      * @return true if the level successful else false
      */
     public boolean isWin() {
-        return maze.isWin();
+        if (maze != null) {
+            return maze.isWin();
+        }
+        return false;
     }
-    
+
     /**
      * Restar the level by rebuilding the maze
-     * @throws FileNotFoundException 
+     *
+     * @throws FileNotFoundException
      */
-    public void restarLevel() throws FileNotFoundException{
+    public void restarLevel() throws FileNotFoundException {
         maze.restarLevel();
     }
-    
+
     /**
      * Allow to give up the game
      */
-    public void giveUp(){
+    public void giveUp() {
         maze = null;
     }
-    
+
     /**
      * Check if the player has given up
+     *
      * @return true if the game is given up else false
      */
-    public boolean isGiveUp(){
+    public boolean isGiveUp() {
         return maze == null;
     }
 
