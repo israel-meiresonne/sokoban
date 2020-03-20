@@ -81,7 +81,7 @@ public class View {
      * Display the maze
      * @param maze 
      */
-    public void displayMaze(Square[][] maze){
+    public void displayMaze(Square[][] maze, int nbMove){
         int nbRow = maze.length;
         int nbCol = maze[0].length;
         for(int row = 0; row < nbRow; row++){
@@ -91,6 +91,7 @@ public class View {
             }
             System.out.println();
         }
+        System.out.println("Nombre de mouvement effectués: "+nbMove);
     }
 
     /**

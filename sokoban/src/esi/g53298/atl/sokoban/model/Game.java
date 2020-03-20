@@ -23,6 +23,14 @@ public class Game {
     public Square[][] getMaze() {
         return maze.getMaze();
     }
+    
+    /**
+     * 
+     * @return the number of valid move
+     */
+    public int getNbMove(){
+        return maze.getNbMove();
+    }
 
     /**
      * Ollows to move the player to left by checking if the left square isn(t a

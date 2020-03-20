@@ -23,7 +23,7 @@ public class Controller {
         int level = view.askLevel();
         game = new Game(level);
         view.displayGameCommand();
-        view.displayMaze(game.getMaze());
+        view.displayMaze(game.getMaze(), game.getNbMove());
         boolean isEnd = false;
         String cmd;
 
@@ -55,20 +55,20 @@ public class Controller {
         switch (cmdTab[0]) {
             case "move":
                 treatMove(cmdTab[1]);
-                view.displayMaze(game.getMaze());
+                view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
             case "undo":
                 game.undoMove();
-                view.displayMaze(game.getMaze());
+                view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
             case "redo":
                 game.redoMove();
-                view.displayMaze(game.getMaze());
+                view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
             case "restart":
                 game.restarLevel();
                 view.displayGameCommand();
-                view.displayMaze(game.getMaze());
+                view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
             case "help":
                 view.displayGameCommand();
@@ -99,7 +99,7 @@ public class Controller {
                 int level = view.askLevel();
                 game = new Game(level);
                 view.displayGameCommand();
-                view.displayMaze(game.getMaze());
+                view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
             case "help":
                 view.displayHelp();

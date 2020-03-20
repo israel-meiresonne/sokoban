@@ -24,6 +24,7 @@ public class Maze {
     private final int level;
     private Stack<Move> doneMoves;
     private Stack<Move> undoMoves;
+    private int nbMove;
 
     /**
      * Constructor
@@ -36,6 +37,7 @@ public class Maze {
         gaols = new ArrayList<>();
         doneMoves = new Stack<>();
         undoMoves = new Stack<>();
+        nbMove = 0;
         maze = buildMaze(this.level);
     }
 
@@ -119,8 +121,20 @@ public class Maze {
         return maze;
     }
 
+    /**
+     * 
+     * @return the maze
+     */
     public Square[][] getMaze() {
         return maze;
+    }
+
+    /**
+     *
+     * @return the number of valid move
+     */
+    public int getNbMove() {
+        return nbMove;
     }
 
     /**
@@ -179,6 +193,7 @@ public class Maze {
                 Position newPosition = new Position(newRow, newColumn);
                 movePlayer(newPosition);
                 doneMoves.push(new Move(direction, false));
+                nbMove += 1;
             } else {
                 if (maze[newRow][newColumn].isBox()) {
                     Position boxpos = new Position(newRow, newColumn);
@@ -189,6 +204,7 @@ public class Maze {
                         Position newPosition = new Position(newRow, newColumn);
                         movePlayer(newPosition);
                         doneMoves.push(new Move(direction, true));
+                        nbMove += 1;
                     }
                 }
             }
@@ -236,7 +252,7 @@ public class Maze {
     public void undoMove() {
         if (!doneMoves.empty()) {
             Position newBoxPos = playerPosition; // if a box has been moved at 
-                                                //the last trun
+            //the last trun
             Move lastMove = doneMoves.pop();
             Direction lastMoveDir = lastMove.getDirection();
             Direction oppositeDir = lastMoveDir.getOpposite();
@@ -244,6 +260,7 @@ public class Maze {
             int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
             Position newPosition = new Position(newRow, newCol);
             movePlayer(newPosition);
+            nbMove -= 1;
 
             if (lastMove.getBoxMoved()) {
                 int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
