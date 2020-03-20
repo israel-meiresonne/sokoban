@@ -55,6 +55,16 @@ public class View {
      */
     public void displayHelp() {
         System.out.println("Usage:");
+        System.out.println("       Choisir un niveau: level");
+        System.out.println("       Afficher les commandes disponibles: help");
+        System.out.println("       Quitter le jeu: quit");
+        System.out.println();
+    }
+    /**
+     * displays available game commands
+     */
+    public void displayGameCommand() {
+        System.out.println("Usage:");
         System.out.println("       Bouger vers le haut: move u");
         System.out.println("       Bouger vers le bas: move d");
         System.out.println("       Bouger vers le gauche: move l");
@@ -62,10 +72,8 @@ public class View {
         System.out.println("       Annuler le dernier mouvement: undo");
         System.out.println("       Retablir le dernier mouvement: redo");
         System.out.println("       Abandonner la partie: giveup");
-        System.out.println("       Choisir un niveau: level");
         System.out.println("       Recommencer le niveau: restart");
-        System.out.println("       Afficher l'aide: help");
-        System.out.println("       Quitter le jeu: quit");
+        System.out.println("       Afficher les commandes disponibles: help");
         System.out.println();
     }
     
@@ -91,6 +99,17 @@ public class View {
      * @return a String commande
      */
     public String askCommand() {
+        System.out.println("Entrer votre commande");
+        String cmd = in.nextLine();
+        return cmd;
+    }
+    
+    /**
+     * ask to enter a command and return this command
+     *
+     * @return a String commande
+     */
+    public String askGameCommand() {
         System.out.println("Entrer votre commande");
         String cmd = in.nextLine();
         return cmd;

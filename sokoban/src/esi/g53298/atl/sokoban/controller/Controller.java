@@ -22,31 +22,34 @@ public class Controller {
 //        int level = 1;
         int level = view.askLevel();
         game = new Game(level);
-        view.displayHelp();
+        view.displayGameCommand();
         view.displayMaze(game.getMaze());
         boolean isEnd = false;
         String cmd;
 
         while (!isEnd) {
-//            cmd = "move u";
+            boolean gameIsEnd = false;
+            String cmdGame;
+            while (!gameIsEnd && !game.isWin()) {
+                cmdGame = view.askGameCommand().toLowerCase();
+                gameIsEnd = treatGameCmd(cmdGame);
+            }
+            view.displayHelp();
             cmd = view.askCommand().toLowerCase();
             isEnd = treatCmd(cmd);
-            if (game.isWin()) {
-                view.displaySuccess();
-                cmd = view.askCommand().toLowerCase();
-                isEnd = treatCmd(cmd);
-            }
-            if (game.isGiveUp()) {
-                view.displayError("Tu as abandonnée la partie!");
-                cmd = view.askCommand().toLowerCase();
-                isEnd = treatCmd(cmd);
-            }
-//            cmd = "undo";
-//            isEnd = treatCmd(cmd);
+
         }
     }
 
-    private boolean treatCmd(String cmd) throws FileNotFoundException {
+    /**
+     * Treat command entered by the player
+     *
+     * @param cmd the command given by the player
+     * @return false if the command was treated with success or true if the
+     * command is to give up the game
+     * @throws FileNotFoundException if the file of the level don't existe
+     */
+    private boolean treatGameCmd(String cmd) throws FileNotFoundException {
         String[] cmdTab = cmd.split(" ");
 
         switch (cmdTab[0]) {
@@ -62,18 +65,40 @@ public class Controller {
                 game.redoMove();
                 view.displayMaze(game.getMaze());
                 break;
-            case "giveup":
-                game.giveUp();
+            case "restart":
+                game.restarLevel();
+                view.displayGameCommand();
+                view.displayMaze(game.getMaze());
                 break;
+            case "help":
+                view.displayGameCommand();
+                break;
+            case "giveup":
+                view.displayError("Tu as abandonnée la partie!");
+                game.giveUp();
+                return true;
+            default:
+                view.displayError("La commande '" + cmdTab[0] + "' est incorrecte!");
+        }
+        return false;
+    }
+
+    /**
+     * Treat command entered by the player
+     *
+     * @param cmd the command given by the player
+     * @return false if the command was treated with success or true if the
+     * command is to quit the application
+     * @throws FileNotFoundException if the file of the level don't existe
+     */
+    private boolean treatCmd(String cmd) throws FileNotFoundException {
+        String[] cmdTab = cmd.split(" ");
+
+        switch (cmdTab[0]) {
             case "level":
                 int level = view.askLevel();
                 game = new Game(level);
-                view.displayHelp();
-                view.displayMaze(game.getMaze());
-                break;
-            case "restart":
-                game.restarLevel();
-                view.displayHelp();
+                view.displayGameCommand();
                 view.displayMaze(game.getMaze());
                 break;
             case "help":
@@ -87,6 +112,11 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Try to move the player to the direction passed in param
+     *
+     * @param dir the direction character
+     */
     private void treatMove(String dir) {
         switch (dir) {
             case "u":
