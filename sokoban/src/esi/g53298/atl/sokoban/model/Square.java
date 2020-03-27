@@ -91,7 +91,7 @@ public class Square {
      *
      * @return the symbol of the square or its movable object
      */
-    public String getContentSymbol() {
+    public String getContentSymbol() { //@srv doit se trouver dans la vue.
         String symbol = "";
         switch (type) {
             case Goal:

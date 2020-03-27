@@ -119,7 +119,7 @@ public class Controller {
      */
     private void treatMove(String dir) {
         switch (dir) {
-            case "u":
+            case "u": //@srv utiliser des constantes.
                 game.moveUp();
                 break;
             case "d":

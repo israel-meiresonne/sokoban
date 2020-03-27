@@ -16,15 +16,17 @@ import java.util.Stack;
  *
  * @author israelmeiresonne
  */
-public class Maze {
+public class Maze { //@srv cette classe est tro longue, trop de responsabilités.
 
     private Square[][] maze;
     private Position playerPosition;
     private final ArrayList<Square> gaols;
-    private final int level;
-    private Stack<Move> doneMoves;
+    
+    //@srv les attributs ci-dessous vont dans Gameet sont gérés par Game.
+    private final int level;//@srv dans Game
+    private Stack<Move> doneMoves; // @srv dans Game
     private Stack<Move> undoMoves;
-    private int nbMove;
+    private int nbMove; //@srv dans Game
 
     /**
      * Constructor
@@ -69,7 +71,7 @@ public class Maze {
         myReader = new Scanner(levelFile);
         Square[][] maze = new Square[nbRow][maxCol];
         int row = 0;
-        while (myReader.hasNextLine()) {
+        while (myReader.hasNextLine()) { //@srv la lecture/décodage du fichier se fait dans une classe dédiée: XsbReader.
             String data = myReader.nextLine();
             int nbCol = data.length();
 

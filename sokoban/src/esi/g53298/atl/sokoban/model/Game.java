@@ -20,7 +20,7 @@ public class Game {
         this.maze = new Maze(level);
     }
 
-    public Square[][] getMaze() {
+    public Square[][] getMaze() { //@srv supprimer cette méthode et remplacer par getHeight, getWidth et getSquareAt(pos)
         return maze.getMaze();
     }
     
@@ -38,7 +38,7 @@ public class Game {
      *
      * @throws IllegalStateException if the left Square is a wall
      */
-    public void moveLeft() {
+    public void moveLeft() { //@srv: 1 seule méthode: move(Direction dir)
         maze.moveLeft();
     }
 
