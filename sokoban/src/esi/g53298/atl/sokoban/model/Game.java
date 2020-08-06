@@ -1,6 +1,7 @@
 package esi.g53298.atl.sokoban.model;
 
 import java.io.FileNotFoundException;
+import java.util.Stack;
 
 /**
  *
@@ -9,6 +10,12 @@ import java.io.FileNotFoundException;
 public class Game {
 
     private Maze maze;
+    //@srv les attributs ci-dessous vont dans Gameet sont gérés par Game.
+    private int level;//@srv dans Game
+    private Stack<Move> doneMoves; // @srv dans Game
+    private Stack<Move> undoMoves;
+    private int nbMove; //@srv dans Game
+    private boolean resetUndo;
 
     /**
      * Constructor
@@ -17,54 +24,68 @@ public class Game {
      * @throws FileNotFoundException
      */
     public Game(int level) throws FileNotFoundException {
+        setGame(level);
+    }
+
+    private void setGame(int level) throws FileNotFoundException {
         this.maze = new Maze(level);
+        this.level = level;
+        doneMoves = new Stack<>();
+        undoMoves = new Stack<>();
+        nbMove = 0;
+        resetUndo = true;
     }
 
     public Square[][] getMaze() { //@srv supprimer cette méthode et remplacer par getHeight, getWidth et getSquareAt(pos)
         return maze.getMaze();
     }
-    
+
     /**
-     * 
+     *
      * @return the number of valid move
      */
-    public int getNbMove(){
-        return maze.getNbMove();
+    public int getNbMove() {
+        return nbMove;
     }
 
     /**
-     * Ollows to move the player to left by checking if the left square isn(t a
-     * wall and if it free
+     * Manage the player's moves in the four direction (UP, DOWN, LEFT, RIGHT)
      *
-     * @throws IllegalStateException if the left Square is a wall
+     * @param direction an enum witch indicate the direction to move
      */
-    public void moveLeft() { //@srv: 1 seule méthode: move(Direction dir)
-        maze.moveLeft();
+    public void move(Direction direction) {
+        undoMoves = (resetUndo) ? new Stack<>() : undoMoves;
+        Position playerPosition = maze.getPlayerPosition();
+        int newRow = playerPosition.getRow() + direction.getRow();
+        int newColumn = playerPosition.getColumn() + direction.getColumn();
+        Position newPosition = new Position(newRow, newColumn);
+
+        Square newSquare = maze.getSquare(newPosition);
+        SquareType type = newSquare.getType();
+        if (type != SquareType.Wall) {
+            if (newSquare.isFree()) {
+                maze.movePlayer(newPosition);
+                doneMoves.push(new Move(direction, false));
+                nbMove += 1;
+            } else {
+                if (newSquare.isBox()) {
+                    Position boxpos = new Position(newRow, newColumn);
+                    Position newBoxpos = new Position(newRow + direction.getRow(),
+                            newColumn + direction.getColumn());
+
+                    if (maze.moveBox(boxpos, newBoxpos)) {
+                        maze.movePlayer(newPosition);
+                        doneMoves.push(new Move(direction, true));
+                        nbMove += 1;
+                    }
+                }
+            }
+        }
     }
 
     /**
-     * Ollows to move the player to right
-     */
-    public void moveRight() {
-        maze.moveRight();
-    }
-
-    /**
-     * Ollows to move the player to up
-     */
-    public void moveUp() {
-        maze.moveUp();
-    }
-
-    /**
-     * Ollows to move the player to left
-     */
-    public void moveDown() {
-        maze.moveDown();
-    }
-
-    /**
-     * Check if the level is successful by check if all box is in a gaol square
+     * Check if the level is successful by checking if all box is in a gaol
+     * square
      *
      * @return true if the level successful else false
      */
@@ -81,7 +102,7 @@ public class Game {
      * @throws FileNotFoundException
      */
     public void restarLevel() throws FileNotFoundException {
-        maze.restarLevel();
+        setGame(level);
     }
 
     /**
@@ -91,27 +112,42 @@ public class Game {
         maze = null;
     }
 
-//    /**
-//     * Check if the player has given up
-//     *
-//     * @return true if the game is given up else false
-//     */
-//    public boolean isGiveUp() {
-//        return maze == null;
-//    }
-
     /**
      * Undo the last move witch worked
      */
     public void undoMove() {
-        maze.undoMove();
+        if (!doneMoves.empty()) {
+            Position playerPosition = maze.getPlayerPosition();
+            Position newBoxPos = playerPosition; // if a box has been moved at 
+            //the last trun
+            Move lastMove = doneMoves.pop();
+            Direction lastMoveDir = lastMove.getDirection();
+            Direction oppositeDir = lastMoveDir.getOpposite();
+            int newRow = playerPosition.getRow() + oppositeDir.getRow();
+            int newCol = playerPosition.getColumn() + oppositeDir.getColumn();
+            Position newPosition = new Position(newRow, newCol);
+            maze.movePlayer(newPosition);
+            nbMove -= 1;
+
+            if (lastMove.getBoxMoved()) {
+                int currentBoxRow = newBoxPos.getRow() + lastMoveDir.getRow();
+                int currentBoxCol = newBoxPos.getColumn() + lastMoveDir.getColumn();
+                Position boxPosition = new Position(currentBoxRow, currentBoxCol);
+                maze.moveBox(boxPosition, newBoxPos);
+            }
+            undoMoves.push(lastMove);
+        }
     }
 
     /**
      * Redo the last undone move
      */
     public void redoMove() {
-        maze.redoMove();
+        resetUndo = false;
+        if (!undoMoves.empty()) {
+            Move undoneMove = undoMoves.pop();
+            move(undoneMove.getDirection());
+        }
+        resetUndo = true;
     }
-
 }

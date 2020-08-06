@@ -1,5 +1,6 @@
 package esi.g53298.atl.sokoban.controller;
 
+import static esi.g53298.atl.sokoban.model.Direction.*;
 import esi.g53298.atl.sokoban.model.Game;
 import esi.g53298.atl.sokoban.view.View;
 import java.io.FileNotFoundException;
@@ -120,16 +121,16 @@ public class Controller {
     private void treatMove(String dir) {
         switch (dir) {
             case "u": //@srv utiliser des constantes.
-                game.moveUp();
+                game.move(UP);
                 break;
             case "d":
-                game.moveDown();
+                game.move(DOWN);
                 break;
             case "l":
-                game.moveLeft();
+                game.move(LEFT);
                 break;
             case "r":
-                game.moveRight();
+                game.move(RIGHT);
                 break;
         }
     }
