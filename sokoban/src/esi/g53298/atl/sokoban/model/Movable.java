@@ -14,7 +14,7 @@ public class Movable {
      */
     public Movable(MovableType type){
         this.type = type;
-        SYMBOL = type.getSymbol();
+        SYMBOL = type.toString();
     }
     
     /**
@@ -25,11 +25,16 @@ public class Movable {
         return type;
     }
     
-    /**
-     * 
-     * @return the symbol of the movable object
-     */
-    public String getSymbol(){
+//    /**
+//     * 
+//     * @return the symbol of the movable object
+//     */
+//    public String getSymbol(){
+//        return SYMBOL;
+//    }
+
+    @Override
+    public String toString() {
         return SYMBOL;
     }
     

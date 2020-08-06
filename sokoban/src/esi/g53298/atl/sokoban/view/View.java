@@ -86,8 +86,8 @@ public class View {
         int nbCol = maze[0].length;
         for(int row = 0; row < nbRow; row++){
             for(int col = 0; col < nbCol; col++){
-                String symbol = maze[row][col].getContentSymbol();
-                System.out.print(maze[row][col].getContentSymbol());
+                String symbol = maze[row][col].toString();
+                System.out.print(maze[row][col].toString());
             }
             System.out.println();
         }

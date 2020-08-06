@@ -11,6 +11,8 @@ public class Square {
     private SquareType type;
     private Movable movable;
     public static final String ANSI_RED = "\u001B[31m";
+    private final String EMPTY_GAOL = ".";
+    private final String BOX_ON_GAOL = "*";
 
     /**
      * Constructor
@@ -88,29 +90,32 @@ public class Square {
     }
 
     /**
-     *
      * @return the symbol of the square or its movable object
      */
-    public String getContentSymbol() { //@srv doit se trouver dans la vue.
+    public String toString() { //@srv doit se trouver dans la vue.
         String symbol = "";
         switch (type) {
             case Goal:
+//                if (movable == null) {
+//                    symbol = ".";
+//                } else {
+//                    return (movable.geType() == BOX)
+//                            ? (ANSI_RED + movable.toString()) : "+";
+//                }
                 if (movable == null) {
-                    symbol = ".";
+                    symbol = EMPTY_GAOL;
                 } else {
-                    return (movable.geType() == BOX)
-                            ? (ANSI_RED + movable.getSymbol()) : "+";
+                    symbol = (movable.geType() == BOX)
+                            ? (ANSI_RED + BOX_ON_GAOL) : type.toString();
                 }
                 break;
             case Empty:
-                symbol = (movable == null) ? " " : movable.getSymbol();
+                symbol = (movable == null) ? type.toString() : movable.toString();
                 break;
             case Wall:
-                symbol = "#";
+                symbol = type.toString();
                 break;
         }
-
         return symbol;
     }
-
 }
