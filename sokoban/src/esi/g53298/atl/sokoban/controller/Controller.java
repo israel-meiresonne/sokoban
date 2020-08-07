@@ -12,7 +12,19 @@ import java.io.FileNotFoundException;
 public class Controller {
 
     private Game game;
-    private View view;
+    private final View view;
+    public static final String CMD_MOVE = "move";
+    public static final String CMD_UNDO = "undo";
+    public static final String CMD_REDO = "redo";
+    public static final String CMD_RESTART = "restart";
+    public static final String CMD_HELP = "help";
+    public static final String CMD_GIVE_UP = "giveup";
+    public static final String CMD_LEVEL = "level";
+    public static final String CMD_QUIT = "quit";
+    public static final String CMD_UP = "u";
+    public static final String CMD_DOWN = "d";
+    public static final String CMD_LEFT = "l";
+    public static final String CMD_RIGHT = "r";
 
     public Controller() {
         view = new View();
@@ -54,27 +66,27 @@ public class Controller {
         String[] cmdTab = cmd.split(" ");
 
         switch (cmdTab[0]) {
-            case "move":
+            case CMD_MOVE:
                 treatMove(cmdTab[1]);
                 view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
-            case "undo":
+            case CMD_UNDO:
                 game.undoMove();
                 view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
-            case "redo":
+            case CMD_REDO:
                 game.redoMove();
                 view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
-            case "restart":
+            case CMD_RESTART:
                 game.restarLevel();
                 view.displayGameCommand();
                 view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
-            case "help":
+            case CMD_HELP:
                 view.displayGameCommand();
                 break;
-            case "giveup":
+            case CMD_GIVE_UP:
                 view.displayError("Tu as abandonnée la partie!");
                 game.giveUp();
                 return true;
@@ -96,16 +108,16 @@ public class Controller {
         String[] cmdTab = cmd.split(" ");
 
         switch (cmdTab[0]) {
-            case "level":
+            case CMD_LEVEL:
                 int level = view.askLevel();
                 game = new Game(level);
                 view.displayGameCommand();
                 view.displayMaze(game.getMaze(), game.getNbMove());
                 break;
-            case "help":
+            case CMD_HELP:
                 view.displayHelp();
                 break;
-            case "quit":
+            case CMD_QUIT:
                 return true;
             default:
                 view.displayError("La commande '" + cmdTab[0] + "' est incorrecte!");
@@ -120,16 +132,16 @@ public class Controller {
      */
     private void treatMove(String dir) {
         switch (dir) {
-            case "u": //@srv utiliser des constantes.
+            case CMD_UP: //@srv utiliser des constantes.
                 game.move(UP);
                 break;
-            case "d":
+            case CMD_DOWN:
                 game.move(DOWN);
                 break;
-            case "l":
+            case CMD_LEFT:
                 game.move(LEFT);
                 break;
-            case "r":
+            case CMD_RIGHT:
                 game.move(RIGHT);
                 break;
         }

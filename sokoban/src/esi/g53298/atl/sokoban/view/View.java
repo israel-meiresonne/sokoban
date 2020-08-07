@@ -1,8 +1,7 @@
 package esi.g53298.atl.sokoban.view;
 
-import esi.g53298.atl.sokoban.model.Maze;
+import static esi.g53298.atl.sokoban.controller.Controller.*;
 import esi.g53298.atl.sokoban.model.Square;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -26,7 +25,7 @@ public class View {
     public void initialize() {
         System.out.println("Bienvenue sur Sokoban");
     }
-    
+
     /**
      * displays a level success message
      */
@@ -55,43 +54,45 @@ public class View {
      */
     public void displayHelp() {
         System.out.println("Usage:");
-        System.out.println("       Choisir un niveau: level");
-        System.out.println("       Afficher les commandes disponibles: help");
-        System.out.println("       Quitter le jeu: quit");
+        System.out.println("       Choisir un niveau: " + CMD_LEVEL);
+        System.out.println("       Afficher les commandes disponibles: " + CMD_HELP);
+        System.out.println("       Quitter le jeu: " + CMD_QUIT);
         System.out.println();
     }
+
     /**
      * displays available game commands
      */
     public void displayGameCommand() {
         System.out.println("Usage:");
-        System.out.println("       Bouger vers le haut: move u");
-        System.out.println("       Bouger vers le bas: move d");
-        System.out.println("       Bouger vers le gauche: move l");
-        System.out.println("       Bouger vers le droite: move r");
-        System.out.println("       Annuler le dernier mouvement: undo");
-        System.out.println("       Retablir le dernier mouvement: redo");
-        System.out.println("       Abandonner la partie: giveup");
-        System.out.println("       Recommencer le niveau: restart");
-        System.out.println("       Afficher les commandes disponibles: help");
+        System.out.println("       Bouger vers le haut: " + CMD_MOVE + " " + CMD_UP);
+        System.out.println("       Bouger vers le bas: " + CMD_MOVE + " " + CMD_DOWN);
+        System.out.println("       Bouger vers le gauche: " + CMD_MOVE + " " + CMD_LEFT);
+        System.out.println("       Bouger vers le droite: " + CMD_MOVE + " " + CMD_RIGHT);
+        System.out.println("       Annuler le dernier mouvement: " + CMD_UNDO);
+        System.out.println("       Retablir le dernier mouvement: " + CMD_REDO);
+        System.out.println("       Abandonner la partie: " + CMD_RESTART);
+        System.out.println("       Recommencer le niveau: " + CMD_GIVE_UP);
+        System.out.println("       Afficher les commandes disponibles: " + CMD_HELP);
         System.out.println();
     }
-    
+
     /**
      * Display the maze
-     * @param maze 
+     *
+     * @param maze
      */
-    public void displayMaze(Square[][] maze, int nbMove){
+    public void displayMaze(Square[][] maze, int nbMove) {
         int nbRow = maze.length;
         int nbCol = maze[0].length;
-        for(int row = 0; row < nbRow; row++){
-            for(int col = 0; col < nbCol; col++){
+        for (int row = 0; row < nbRow; row++) {
+            for (int col = 0; col < nbCol; col++) {
                 String symbol = maze[row][col].toString();
                 System.out.print(maze[row][col].toString());
             }
             System.out.println();
         }
-        System.out.println("Nombre de mouvement effectués: "+nbMove);
+        System.out.println("Nombre de mouvement effectués: " + nbMove);
     }
 
     /**
@@ -104,7 +105,7 @@ public class View {
         String cmd = in.nextLine();
         return cmd;
     }
-    
+
     /**
      * ask to enter a command and return this command
      *
@@ -115,7 +116,7 @@ public class View {
         String cmd = in.nextLine();
         return cmd;
     }
-    
+
     /**
      * ask to enter a command and return this command
      *
@@ -126,13 +127,14 @@ public class View {
         String level = in.nextLine();
         return checkInt(level, "Le niveau est incorrect!");
     }
-    
-        /**
-     * Convert string to int if it convertible else throw an error with the 
+
+    /**
+     * Convert string to int if it convertible else throw an error with the
      * message passed in param
+     *
      * @param str the string to convert to int
-     * @param errorMsg the error message to throw if the string is 
-     * unconvertible to int
+     * @param errorMsg the error message to throw if the string is unconvertible
+     * to int
      * @return a int conersion double the string passed in param
      * @throws IllegalArgumentException if the string is unconvertible to int
      */
@@ -143,7 +145,7 @@ public class View {
             throw new IllegalArgumentException(errorMsg);
         }
     }
-    
+
 //    public static void main(String args[]) throws FileNotFoundException{
 //        Maze maze = new Maze(1);
 //        View view = new View();
