@@ -1,6 +1,8 @@
 package esi.g53298.atl.sokoban.view;
 
 import static esi.g53298.atl.sokoban.controller.Controller.*;
+import esi.g53298.atl.sokoban.model.Game;
+import esi.g53298.atl.sokoban.model.Position;
 import esi.g53298.atl.sokoban.model.Square;
 import java.util.Scanner;
 
@@ -80,15 +82,18 @@ public class View {
     /**
      * Display the maze
      *
-     * @param maze
+     * @param game current game
      */
-    public void displayMaze(Square[][] maze, int nbMove) {
-        int nbRow = maze.length;
-        int nbCol = maze[0].length;
+    public void displayMaze(Game game) {
+        int nbMove = game.getNbMove();
+        int nbRow = game.getHeight();
+        int nbCol = game.getWidth();
         for (int row = 0; row < nbRow; row++) {
             for (int col = 0; col < nbCol; col++) {
-                String symbol = maze[row][col].toString();
-                System.out.print(maze[row][col].toString());
+                Position pos = new Position(row, col);
+                String symbol = game.getSquareAt(pos).toString();
+//                System.out.print(maze[row][col].toString());
+                System.out.print(symbol);
             }
             System.out.println();
         }

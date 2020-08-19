@@ -1,13 +1,15 @@
 package esi.g53298.atl.sokoban.model;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
  *
  * @author israelmeiresonne
  */
-public class Game {
+public class Game implements Subject {
 
     private Maze maze;
     //@srv les attributs ci-dessous vont dans Gameet sont gérés par Game.
@@ -16,6 +18,7 @@ public class Game {
     private Stack<Move> undoMoves;
     private int nbMove; //@srv dans Game
     private boolean resetUndo;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor
@@ -24,6 +27,7 @@ public class Game {
      * @throws FileNotFoundException
      */
     public Game(int level) throws FileNotFoundException {
+        observers = new ArrayList<>();
         setGame(level);
     }
 
@@ -36,8 +40,33 @@ public class Game {
         resetUndo = true;
     }
 
-    public Square[][] getMaze() { //@srv supprimer cette méthode et remplacer par getHeight, getWidth et getSquareAt(pos)
-        return maze.getMaze();
+//    public Square[][] getMaze() { //@srv supprimer cette méthode et remplacer par getHeight, getWidth et getSquareAt(pos)
+//        return maze.getMaze();
+//    }
+    
+    /**
+     * To get the square at the given position
+     * @param pos position where to get the square
+     * @return the square at the given position
+     */
+    public Square getSquareAt(Position pos){
+        return maze.getMaze()[pos.getRow()][pos.getColumn()];
+    }
+    
+    /**
+     * To get maze's height
+     * @return maze's height
+     */
+    public int getHeight(){
+        return maze.getMaze().length;
+    }
+
+    /**
+     * To get maze's width
+     * @return maze's width
+     */
+    public int getWidth(){
+        return maze.getMaze()[0].length;
     }
 
     /**
@@ -149,5 +178,22 @@ public class Game {
             move(undoneMove.getDirection());
         }
         resetUndo = true;
+    }
+
+    @Override
+    public void registerObserver(Observer obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        observers.remove(obs);
+    }
+
+    @Override
+    public void notifyObserver() {
+        observers.forEach((obs) -> {
+            obs.update();
+        });
     }
 }
