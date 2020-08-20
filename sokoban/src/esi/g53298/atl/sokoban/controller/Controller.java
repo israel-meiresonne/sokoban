@@ -26,8 +26,8 @@ public class Controller {
     public static final String CMD_LEFT = "l";
     public static final String CMD_RIGHT = "r";
 
-    public Controller() {
-        view = new View();
+    public Controller(View view) {
+        this.view = view;
     }
 
     public void startGame() throws FileNotFoundException {

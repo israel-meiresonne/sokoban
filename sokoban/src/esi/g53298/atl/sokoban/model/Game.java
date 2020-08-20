@@ -21,17 +21,26 @@ public class Game implements Subject {
     private ArrayList<Observer> observers;
 
     /**
-     * Constructor
+     * Constructor for Javafx application
+     */
+    public Game() {
+        observers = new ArrayList<>();
+//        setGame(level);
+    }
+
+    /**
+     * Constructor for terminal displaying
      *
      * @param level
      * @throws FileNotFoundException
      */
     public Game(int level) throws FileNotFoundException {
-        observers = new ArrayList<>();
+//        observers = new ArrayList<>();
+        this();
         setGame(level);
     }
 
-    private void setGame(int level) throws FileNotFoundException {
+    public void setGame(int level) throws FileNotFoundException {
         this.maze = new Maze(level);
         this.level = level;
         doneMoves = new Stack<>();
@@ -40,32 +49,31 @@ public class Game implements Subject {
         resetUndo = true;
     }
 
-//    public Square[][] getMaze() { //@srv supprimer cette méthode et remplacer par getHeight, getWidth et getSquareAt(pos)
-//        return maze.getMaze();
-//    }
-    
     /**
      * To get the square at the given position
+     *
      * @param pos position where to get the square
      * @return the square at the given position
      */
-    public Square getSquareAt(Position pos){
+    public Square getSquareAt(Position pos) {
         return maze.getMaze()[pos.getRow()][pos.getColumn()];
     }
-    
+
     /**
      * To get maze's height
+     *
      * @return maze's height
      */
-    public int getHeight(){
+    public int getHeight() {
         return maze.getMaze().length;
     }
 
     /**
      * To get maze's width
+     *
      * @return maze's width
      */
-    public int getWidth(){
+    public int getWidth() {
         return maze.getMaze()[0].length;
     }
 

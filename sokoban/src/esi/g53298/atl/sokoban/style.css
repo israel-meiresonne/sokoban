@@ -1,0 +1,31 @@
+
+.root {
+    -fx-purple: #7E03AC;
+    -fx-yellow: #FFEA04;
+    -fx-pink: #FE3A9E;
+}
+
+.main-background {
+    -fx-background-color: -fx-purple;
+}
+
+.main-text-color {
+    /*-fx-color: -fx-yellow;*/
+    -fx-text-fill: -fx-yellow;
+}
+
+.title-font{
+    -fx-font: bold 60px "Impact";
+}
+
+.main-font{
+    -fx-font: bold 30px "Impact";
+}
+
+.button {
+/*    -fx-height: 115px;
+    -fx-width: 480px;*/
+    -fx-background-color: -fx-pink;
+    -fx-text-fill: -fx-yellow;
+    -fx-padding: 10px 100px;
+}

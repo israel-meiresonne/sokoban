@@ -13,12 +13,14 @@ import java.util.Scanner;
 public class View {
 
     private Scanner in;
+    private ViewPlayer layout;
 
     /**
      * Constructor
      */
-    public View() {
-        this.in = new Scanner(System.in);;
+    public View(String args[]) {
+        this.in = new Scanner(System.in);
+        ViewPlayer layout = new ViewPlayer(args);
     }
 
     /**
