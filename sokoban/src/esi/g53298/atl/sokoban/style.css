@@ -9,23 +9,27 @@
     -fx-background-color: -fx-purple;
 }
 
-.main-text-color {
-    /*-fx-color: -fx-yellow;*/
-    -fx-text-fill: -fx-yellow;
-}
-
 .title-font{
     -fx-font: bold 60px "Impact";
+    -fx-text-fill: -fx-yellow;
 }
 
 .main-font{
     -fx-font: bold 30px "Impact";
+    -fx-text-fill: -fx-yellow;
+}
+
+.info-font{
+    -fx-font: bold 15 "Impact";
+    -fx-text-fill: -fx-yellow;
 }
 
 .button {
-/*    -fx-height: 115px;
-    -fx-width: 480px;*/
     -fx-background-color: -fx-pink;
     -fx-text-fill: -fx-yellow;
     -fx-padding: 10px 100px;
+}
+
+.lvlBox{
+    -fx-padding: 10px;
 }
