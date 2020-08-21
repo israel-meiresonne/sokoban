@@ -64,9 +64,4 @@ public enum Direction {
        }
        return oppositeDir;
     }
-    
-//    public static void main(String args[]){
-//        
-//        System.out.println(LEFT.getOpposite());
-//    }
 }

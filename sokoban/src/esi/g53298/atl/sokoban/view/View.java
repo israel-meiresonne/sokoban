@@ -3,7 +3,6 @@ package esi.g53298.atl.sokoban.view;
 import static esi.g53298.atl.sokoban.controller.Controller.*;
 import esi.g53298.atl.sokoban.model.Game;
 import esi.g53298.atl.sokoban.model.Position;
-import esi.g53298.atl.sokoban.model.Square;
 import java.util.Scanner;
 
 /**
@@ -13,14 +12,14 @@ import java.util.Scanner;
 public class View {
 
     private Scanner in;
-    private ViewPlayer layout;
+//    private ViewPlayer layout;
 
     /**
      * Constructor
      */
-    public View(String args[]) {
+    public View() {
         this.in = new Scanner(System.in);
-        ViewPlayer layout = new ViewPlayer(args);
+//        ViewPlayer layout = new ViewPlayer(args);
     }
 
     /**
@@ -93,9 +92,7 @@ public class View {
         for (int row = 0; row < nbRow; row++) {
             for (int col = 0; col < nbCol; col++) {
                 Position pos = new Position(row, col);
-                String symbol = game.getSquareAt(pos).toString();
-//                System.out.print(maze[row][col].toString());
-                System.out.print(symbol);
+                System.out.print(game.getSquareAt(pos));
             }
             System.out.println();
         }
