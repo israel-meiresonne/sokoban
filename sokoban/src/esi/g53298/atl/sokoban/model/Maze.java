@@ -33,22 +33,48 @@ public class Maze { //@srv cette classe est tro longue, trop de responsabilités
     public Square[][] getMaze() {
         return maze;
     }
-    
+
     /**
      * Getter for player's position
+     *
      * @return Position player's position
      */
-    public Position getPlayerPosition(){
+    public Position getPlayerPosition() {
         return (new Position(playerPosition.getRow(), playerPosition.getColumn()));
     }
-    
+
     /**
      * To get maze's square at the given position
+     *
      * @param position position of the square to get
      * @return square at the given position
      */
-    public Square getSquare(Position position){
+    public Square getSquare(Position position) {
         return maze[position.getRow()][position.getColumn()];
+    }
+
+    /**
+     * Getter for game's number of gaol
+     *
+     * @return number of gaol
+     */
+    int getNumberGaol() {
+        return gaols.size();
+    }
+
+    /**
+     * Getter for game's number of goal achieved
+     *
+     * @return number of goal achieved
+     */
+    public int getAchievedGaol() {
+        int achieved = 0;
+        for (Square sq : gaols) {
+            if (sq.isBox()) {
+                achieved++;
+            }
+        }
+        return achieved;
     }
 
     /**

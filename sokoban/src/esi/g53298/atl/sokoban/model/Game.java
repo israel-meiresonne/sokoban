@@ -50,6 +50,31 @@ public class Game implements Subject {
     }
 
     /**
+     * Getter for game's level
+     *
+     * @return game's level
+     */
+    public int getLevel() {
+        return this.level;
+    }
+    
+    /**
+     * Getter for game's number of gaol
+     * @return number of gaol
+     */
+    public int getNumberGaol() {
+        return maze.getNumberGaol();
+    }
+    
+    /**
+     * Getter for game's number of goal achieved
+     * @return number of goal achieved
+     */
+    public int getAchievedGaol() {
+        return maze.getAchievedGaol();
+    }
+
+    /**
      * To get the square at the given position
      *
      * @param pos position where to get the square
@@ -204,4 +229,5 @@ public class Game implements Subject {
             obs.update();
         });
     }
+
 }
