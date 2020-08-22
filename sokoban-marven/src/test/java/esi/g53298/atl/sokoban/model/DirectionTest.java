@@ -7,7 +7,6 @@ package esi.g53298.atl.sokoban.model;
 
 import static esi.g53298.atl.sokoban.model.Direction.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,13 +15,6 @@ import org.junit.jupiter.api.Test;
  * @author israelmeiresonne
  */
 public class DirectionTest {
-
-    private Direction[] directions;
-
-    @BeforeEach
-    public void setUp() {
-        directions = new Direction[]{UP, DOWN, LEFT, RIGHT};
-    }
 
     /**
      * Test of getOpposite method, of class Direction.
@@ -76,14 +68,47 @@ public class DirectionTest {
      * Test of stringToDir method, of class Direction.
      */
     @Test
-    public void testStringToDir() {
+    public void testStringToDir_UP() {
         System.out.println("stringToDir");
-        String strDir = "";
-        Direction expResult = null;
+        String strDir = "UP";
+        Direction expResult = UP;
         Direction result = Direction.stringToDir(strDir);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of stringToDir method, of class Direction.
+     */
+    @Test
+    public void testStringToDir_DOWN() {
+        System.out.println("stringToDir");
+        String strDir = "DOWN";
+        Direction expResult = DOWN;
+        Direction result = Direction.stringToDir(strDir);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of stringToDir method, of class Direction.
+     */
+    @Test
+    public void testStringToDir_LEFT() {
+        System.out.println("stringToDir");
+        String strDir = "LEFT";
+        Direction expResult = LEFT;
+        Direction result = Direction.stringToDir(strDir);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of stringToDir method, of class Direction.
+     */
+    @Test
+    public void testStringToDir_RIGHT() {
+        System.out.println("stringToDir");
+        String strDir = "RIGHT";
+        Direction expResult = RIGHT;
+        Direction result = Direction.stringToDir(strDir);
+        assertEquals(expResult, result);
+    }
 }
