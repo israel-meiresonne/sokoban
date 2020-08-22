@@ -3,7 +3,11 @@ package esi.g53298.atl.sokoban.model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -11,6 +15,7 @@ import java.util.Scanner;
  */
 public class XsbReader {
 
+    private final String dir;
     private Position playerPosition;
     private final ArrayList<Square> gaols;
     private Square[][] maze;
@@ -18,10 +23,21 @@ public class XsbReader {
     /**
      * Constructor
      *
+     * @throws java.io.FileNotFoundException
+     */
+    public XsbReader() throws FileNotFoundException {
+        dir = System.getProperty("user.dir") + "/../level";
+        gaols = new ArrayList<>();
+    }
+
+    /**
+     * Constructor
+     *
      * @param level the level to play
+     * @throws java.io.FileNotFoundException
      */
     public XsbReader(int level) throws FileNotFoundException {
-        gaols = new ArrayList<>();
+        this();
         maze = buildMaze(level);
     }
 
@@ -33,9 +49,9 @@ public class XsbReader {
      * @return the maze filled
      */
     private Square[][] buildMaze(int level) throws FileNotFoundException {
-        String levelDir = System.getProperty("user.dir") + "/../level";
+//        String levelDir = System.getProperty("user.dir") + "/../level";
         String fileName = "/level" + level + ".xsb";
-        File levelFile = new File(levelDir + fileName);
+        File levelFile = new File(dir + fileName);
 
         Scanner myReader = new Scanner(levelFile);
         int nbRow = 0;
@@ -114,17 +130,37 @@ public class XsbReader {
 
     /**
      * Getter for the player's goals
-    */
+     */
     public ArrayList<Square> getGaols() {
         return gaols;
     }
 
     /**
      * Getter for the game's maze
-    */
+     */
     public Square[][] getMaze() {
         return maze;
     }
-    
-    
+
+    /**
+     * To get all level playable
+     *
+     * @return array of level playable
+     */
+    public List<String> getLevels() {
+        List<String> levels = new ArrayList<>();
+        
+        File f = new File(dir);
+        String[] files = f.list((dir, name) -> {
+            Pattern p = Pattern.compile("^level([0-9]+).xsb$");
+            Matcher m = p.matcher(name);
+            Boolean found = m.find();
+            if (found) {
+                levels.add(m.group(1));
+            }
+            return found;
+        });
+        Collections.sort(levels);
+        return levels;
+    }
 }

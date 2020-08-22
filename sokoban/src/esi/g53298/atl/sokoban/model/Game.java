@@ -129,6 +129,14 @@ public class Game implements Subject {
     public int getNbMove() {
         return nbMove;
     }
+    
+    /**
+     * To get all level playable
+     * @return array of level playable
+     */
+    public List<String> getLevels() throws FileNotFoundException{
+        return (new XsbReader()).getLevels();
+    }
 
     /**
      * Manage the player's moves in the four direction (UP, DOWN, LEFT, RIGHT)

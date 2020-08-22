@@ -57,7 +57,7 @@ public class Main extends Application {
         game = new Game();
 
         // get home scene
-        homeRoot = new HomeRoot();
+        homeRoot = new HomeRoot(game.getLevels());
         addLevelButtonBehavor(homeRoot.getButtons());
         primaryStage.setTitle(homeRoot.STAGE_TITLE);
 
@@ -65,7 +65,6 @@ public class Main extends Application {
         String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").toExternalForm();
         mainScene.getStylesheets().add(css);
         primaryStage.setScene(mainScene);
-//        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

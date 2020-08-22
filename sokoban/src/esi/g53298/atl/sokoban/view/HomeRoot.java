@@ -2,6 +2,7 @@ package esi.g53298.atl.sokoban.view;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,10 +24,10 @@ public class HomeRoot extends VBox {
     private final VBox levelBox;
     private Collection<Button> buttons; //= new ArrayList<>();
     public final String STAGE_TITLE = "Bienvenue sur Sokoban 2.0";
+    public final List<String> levels;
 
-    public HomeRoot() {
-        // home display
-//        VBox root = new VBox();
+    public HomeRoot(List<String> levels) {
+        this.levels = levels;
         BorderPane homeBox = new BorderPane();  // in root
         VBox instrucBox = new VBox(10);         // in homeBox
         levelBox = new VBox(15);                // in instrucBox
@@ -79,24 +80,15 @@ public class HomeRoot extends VBox {
         });
     }
 
-//    public void addLevelButton(Game game, Scene scene, Pane levelRoot) {
     public void addLevelButton() {
-        // --- Place level buttons in levelBox and their behavor
-        String[] lvls = {"1", "2", "3"};
-//        lvls = new String[]{"1", "2", "3"};
-//        Collection<Button> buttons = new ArrayList<>();
+//        String[] lvls = {"1", "2", "3"};
         buttons = new ArrayList<>();
-        for (String lvl : lvls) {
+        levels.forEach(lvl -> {
             Button lvlBtn = new Button("Niveau " + lvl);
             lvlBtn.setId(lvl);
-//            lvlBtn.setOnAction((ActionEvent e) -> {
-//                int btnId = Integer.parseInt(lvlBtn.getId());
-////                switchLevelRoot(primaryStage, btnId);
-//                switchLevelRoot(btnId);
-//            });
             lvlBtn.getStyleClass().add("button");
             buttons.add(lvlBtn);
-        }
+        });
         levelBox.getChildren().addAll(buttons);
     }
 
