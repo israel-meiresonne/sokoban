@@ -1,35 +1,17 @@
 package esi.g53298.atl.sokoban;
 
-import static esi.g53298.atl.sokoban.model.Direction.*;
+import esi.g53298.atl.sokoban.controller.Controller;
 import esi.g53298.atl.sokoban.model.Game;
-import esi.g53298.atl.sokoban.model.Observer;
-import esi.g53298.atl.sokoban.model.Position;
-import esi.g53298.atl.sokoban.model.SquareState;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import esi.g53298.atl.sokoban.controller.Controller;
 import esi.g53298.atl.sokoban.view.HomeRoot;
 import esi.g53298.atl.sokoban.view.LevelRoot;
 
@@ -61,9 +43,13 @@ public class Main extends Application {
         addLevelButtonBehavor(homeRoot.getButtons());
         primaryStage.setTitle(homeRoot.STAGE_TITLE);
 
-        mainScene = new Scene(homeRoot, 1100, 700, Color.WHITE);
-        String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").toExternalForm();
-        mainScene.getStylesheets().add(css);
+        mainScene = new Scene(homeRoot, 1100, 800, Color.WHITE);
+//        String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").toExternalForm();
+//        mainScene.getStylesheets().add(css);
+//        String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").getFile();
+//        System.out.print(css);
+//        String dir = System.getProperty("user.dir") + "/../style.css";
+//        mainScene.getStylesheets().add("../style.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
