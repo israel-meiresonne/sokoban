@@ -38,30 +38,60 @@ public enum Direction {
     public int getColumn() {
         return column;
     }
-    
+
     /**
      * To get the opposite direction of the current direction
+     *
      * @return the opposite direction of the current instance
      */
-    public Direction getOpposite(){
+    public Direction getOpposite() {
         Direction oppositeDir;
-       switch(this.toString()){
-           case "UP":
-               oppositeDir = DOWN;
-               break;
-           case "DOWN":
-               oppositeDir = UP;
-               break;
-           case "LEFT":
-               oppositeDir = RIGHT;
-               break;
-           case "RIGHT":
-               oppositeDir = LEFT;
-               break;
-           default:
-               throw new IllegalStateException("The direction don't match any "
-                       + "direction");
-       }
-       return oppositeDir;
+        switch (this.toString()) {
+            case "UP":
+                oppositeDir = DOWN;
+                break;
+            case "DOWN":
+                oppositeDir = UP;
+                break;
+            case "LEFT":
+                oppositeDir = RIGHT;
+                break;
+            case "RIGHT":
+                oppositeDir = LEFT;
+                break;
+            default:
+                throw new IllegalStateException("The direction don't match any "
+                        + "direction");
+        }
+        return oppositeDir;
+    }
+
+    /**
+     * To convert a string direction to a Direction
+     *
+     * @param strDir a string direction
+     * @return direction to a Direction
+     */
+    public static Direction stringToDir(String strDir) {
+        strDir = strDir.toUpperCase();
+        Direction dir = null;
+        switch (strDir) {
+            case "UP":
+                dir = DOWN;
+                break;
+            case "DOWN":
+                dir = UP;
+                break;
+            case "LEFT":
+                dir = RIGHT;
+                break;
+            case "RIGHT":
+                dir = LEFT;
+                break;
+            default:
+                throw new IllegalStateException("The direction don't match any "
+                        + "direction");
+        }
+        return dir;
     }
 }
