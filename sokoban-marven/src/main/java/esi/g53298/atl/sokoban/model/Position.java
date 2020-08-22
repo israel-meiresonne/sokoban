@@ -35,5 +35,16 @@ public class Position {
     public int getColumn() {
         return column;
     }
+    
+    /**
+     * To get Position instance on the give Direction
+     * @param dir Direction where to get the position
+     * @return 
+     */
+    public Position getPosOnDir(Direction dir){
+        int newRow = row+dir.getRow();
+        int newCol = column+dir.getColumn();
+        return (new Position(newRow, newCol));
+    }
 
 }
