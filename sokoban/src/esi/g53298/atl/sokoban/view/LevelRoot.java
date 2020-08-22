@@ -2,7 +2,6 @@ package esi.g53298.atl.sokoban.view;
 
 import esi.g53298.atl.sokoban.Main;
 import esi.g53298.atl.sokoban.model.Direction;
-import static esi.g53298.atl.sokoban.model.Direction.*;
 import esi.g53298.atl.sokoban.model.Game;
 import esi.g53298.atl.sokoban.model.Move;
 import esi.g53298.atl.sokoban.model.Observer;
@@ -10,8 +9,6 @@ import esi.g53298.atl.sokoban.model.Position;
 import esi.g53298.atl.sokoban.model.SquareState;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import static java.lang.Thread.sleep;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;

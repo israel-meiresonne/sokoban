@@ -17,10 +17,6 @@
    -fx-background-color: transparent;
 }
 
-/*.border-invisible{
-    -fx-border-color: -fx-purple;
-}*/
-
 .title-font{
     -fx-font: bold 60px "Impact";
     -fx-text-fill: -fx-yellow;
