@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 public class HomeRoot extends VBox {
 
     private final VBox levelBox;
-    private Collection<Button> buttons; //= new ArrayList<>();
+    private Collection<Button> buttons;
     public final String STAGE_TITLE = "Bienvenue sur Sokoban 2.0";
     public final List<String> levels;
 
@@ -42,7 +42,6 @@ public class HomeRoot extends VBox {
 
         // --- Welcom Message
         Label welcom = new Label("Bienvenue sur Sokoban 2.0");
-        // welcom.getStyleClass().add("main-text-color");
         welcom.getStyleClass().add("title-font");
         homeBox.setTop(welcom);
         BorderPane.setAlignment(welcom, Pos.TOP_CENTER);
@@ -53,7 +52,6 @@ public class HomeRoot extends VBox {
 
         // --- Add instruction label in instrucBox
         Label instruct = new Label("Veuillez choisir un niveau");
-        // instruct.getStyleClass().add("main-text-color");
         instruct.getStyleClass().add("main-font");
         instrucBox.getChildren().add(instruct);
 
@@ -66,12 +64,15 @@ public class HomeRoot extends VBox {
         addLevelButton();
     }
 
+    /**
+     * To add menu on hormeRoot
+     */
     private void addMenu(Pane root) {
         // --- Menu File
         MenuBar menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
         menuBar.getMenus().add(menuFile);
-        root.getChildren().add(0, menuBar);
+        this.getChildren().add(0, menuBar);
 
         MenuItem exit = new MenuItem("Exit");
         menuFile.getItems().add(exit);
@@ -80,8 +81,10 @@ public class HomeRoot extends VBox {
         });
     }
 
+    /**
+     * To add button level on homeRoot
+     */
     public void addLevelButton() {
-//        String[] lvls = {"1", "2", "3"};
         buttons = new ArrayList<>();
         levels.forEach(lvl -> {
             Button lvlBtn = new Button("Niveau " + lvl);
@@ -92,6 +95,11 @@ public class HomeRoot extends VBox {
         levelBox.getChildren().addAll(buttons);
     }
 
+    /**
+     * Getter for level buttons
+     *
+     * @return level buttons
+     */
     public Collection<Button> getButtons() {
         return buttons;
     }

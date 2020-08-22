@@ -56,28 +56,27 @@ public class LevelRoot extends VBox implements Observer {
     private final String CMD_REDO = "r";
     private final String CMD_UNDO = "u";
 
+    /**
+     * Constructor
+     *
+     * @param game instance of thee game
+     */
     public LevelRoot(Game game) {
-//        primaryStage.setTitle("Sokoban 2.0");
-
         // game layout
-//        VBox root = new VBox();
-        VBox lvlBox = new VBox(10);             // 1, in root
-        VBox innerBox = new VBox(50);           // 2, in lvlBox
-        HBox contentBox = new HBox(10);         // 3, in innerBox
-        HBox btnBox = new HBox(10);             // 4, in innerBox
-        VBox infoBox = new VBox(20);            // 5, in contentBox
-        gameGrid = new GridPane();              // 6, in contentBox
-        VBox moveBox = new VBox(20);            // 7, in contentBox
-//        VBox keyValueBox = new VBox(10);        // 8, in infoBox
-        keyValueBox = new VBox(10);        // 8, in infoBox
-        VBox doneMovesLabelBox = new VBox(5);   // 9, in moveBox
-        VBox undoMovesLabelBox = new VBox(5);   // 10, in moveBox
-//    scrollPane.setFitToHeight(true);
+        VBox lvlBox = new VBox(10);                     // 1, in root
+        VBox innerBox = new VBox(50);                   // 2, in lvlBox
+        HBox contentBox = new HBox(10);                 // 3, in innerBox
+        HBox btnBox = new HBox(10);                     // 4, in innerBox
+        VBox infoBox = new VBox(20);                    // 5, in contentBox
+        gameGrid = new GridPane();                      // 6, in contentBox
+        VBox moveBox = new VBox(20);                    // 7, in contentBox
+        keyValueBox = new VBox(10);                     // 8, in infoBox
+        VBox doneMovesLabelBox = new VBox(5);           // 9, in moveBox
+        VBox undoMovesLabelBox = new VBox(5);           // 10, in moveBox
         ScrollPane doneScrollPane = new ScrollPane();   // 12, in doneMovesLabelBox
         ScrollPane undoScrollPane = new ScrollPane();   // 11, in undoMovesLabelBox
-
-        doneMovesBox = new VBox(10);       // 14, in doneScrollPane
-        undoMovesBox = new VBox(10);       // 13, in undoScrollPane
+        doneMovesBox = new VBox(10);                    // 14, in doneScrollPane
+        undoMovesBox = new VBox(10);                    // 13, in undoScrollPane
 
         // add Menu
         addMenu(this);
@@ -101,9 +100,6 @@ public class LevelRoot extends VBox implements Observer {
         // --- Place keyValueBox in infoBox
         infoBox.getChildren().add(keyValueBox);
 
-        // --- Hide scrollPane's scroll bar
-//        scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-//        scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         // --- Place doneMovesLabelBox and undoMovesLabelBox in moveBox
         doneMovesLabelBox.setMaxHeight(200);
         doneMovesLabelBox.setMinHeight(200);
@@ -125,7 +121,6 @@ public class LevelRoot extends VBox implements Observer {
 
         // --- Place doneMovesBox in doneScrollPane
         doneMovesBox.getStyleClass().add("main-background");
-//        doneMovesBox.getStyleClass().add("border-invisible");
         doneMovesBox.getStyleClass().add("border-invisible");
         doneScrollPane.setContent(doneMovesBox);
 
@@ -161,23 +156,11 @@ public class LevelRoot extends VBox implements Observer {
         lastMvLB.getStyleClass().add("main-font");
         doneMovesLabelBox.getChildren().add(0, lastMvLB);
 
-        // --- Add done Moves in doneMovesBox
-//        Label lastMv = new Label("Player " + UP);
-//        lastMv.getStyleClass().add("info-font");
-//        lastMv.getStyleClass().add("button");
-//        doneMovesBox.getChildren().add(lastMv);
-//        fillMovePane(doneMovesBox, game.getDoneMoves());
         // --- Add label in undoMovesLabelBox
         Label undoMvLB = new Label("Mouvement annulés");
         undoMvLB.getStyleClass().add("main-font");
         undoMovesLabelBox.getChildren().add(0, undoMvLB);
 
-        // --- Add undo Moves in undoMovesBox
-//        Label undoMv = new Label("Player " + DOWN + "\nBox " + DOWN);
-//        undoMv.getStyleClass().add("info-font");
-//        undoMv.getStyleClass().add("button");
-//        undoMovesBox.getChildren().add(undoMv);
-//        fillMovePane(undoMovesBox, game.getUndoMoves());
         // --- Add quit and restart buttons in btnBox
         quit = new Button("Quitter");
         quit.getStyleClass().add("main-font");
@@ -208,6 +191,11 @@ public class LevelRoot extends VBox implements Observer {
         });
     }
 
+    /**
+     * Add behavor on restart button
+     *
+     * @param game current game
+     */
     private void addRestartBehavor(Game game) {
         restart.setOnAction((e) -> {
             try {
@@ -218,25 +206,25 @@ public class LevelRoot extends VBox implements Observer {
         });
     }
 
+    /**
+     * Add game command to play
+     *
+     * @param game curent game
+     */
     private void addKeyBoardCommand(Game game) {
         this.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
             String strDir = e.getCode().toString().toLowerCase();
             try {
                 Direction dir = Direction.stringToDir(strDir);
                 game.move(dir);
-//                System.out.println("move done: " + strDir);
             } catch (IllegalStateException ex) {
-//                Logger.getLogger(LevelRoot.class.getName()).log(Level.SEVERE, null, ex);
-//                System.out.println("invalid direction: " + strDir);
             }
             switch (strDir) {
                 case CMD_UNDO:
                     game.undoMove();
-//                    System.out.println("undo");
                     break;
                 case CMD_REDO:
                     game.redoMove();
-//                    System.out.println("redo");
                     break;
             }
         });
@@ -248,7 +236,6 @@ public class LevelRoot extends VBox implements Observer {
      * @param moves
      */
     private void fillMovePane(Pane pane, Stack<Move> moves) {
-//        pane.getChildren().removeAll(pane.getChildren());
         removeChildren(pane);
         moves.forEach(move -> {
             Direction dir = move.getDirection();
@@ -257,11 +244,15 @@ public class LevelRoot extends VBox implements Observer {
             Label label = new Label(txt);
             label.getStyleClass().add("info-font");
             label.getStyleClass().add("button");
-//            label.setPrefWidth(200);
             pane.getChildren().add(0, label);
         });
     }
 
+    /**
+     * To build the display of the game
+     *
+     * @param game curent game
+     */
     private void buildMaze(Game game) {
         removeChildren(gameGrid);
         int nbRow = game.getHeight();
@@ -284,6 +275,12 @@ public class LevelRoot extends VBox implements Observer {
         }
     }
 
+    /**
+     * Provid picture for game element
+     * @param state the state of the square
+     * @throws FileNotFoundException 
+     * @return picture of a game eleement
+     */
     private Image buildImg(SquareState state) throws FileNotFoundException {
         if (files == null) {
             files = new HashMap<>();
@@ -357,7 +354,6 @@ public class LevelRoot extends VBox implements Observer {
         fillMovePane(undoMovesBox, game.getUndoMoves());
 
         // --- fill gameGrid with game's maze
-//        gameGrid.getChildren().removeAll(gameGrid.getChildren());
         buildMaze(game);
 
         if (game.isWin()) {

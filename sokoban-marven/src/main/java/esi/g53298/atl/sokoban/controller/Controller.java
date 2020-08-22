@@ -6,6 +6,7 @@ import esi.g53298.atl.sokoban.view.View;
 import java.io.FileNotFoundException;
 
 /**
+ * Controller to play with the consol
  *
  * @author israelmeiresonne
  */
@@ -32,7 +33,6 @@ public class Controller {
 
     public void startGame() throws FileNotFoundException {
         view.initialize();
-//        int level = 1;
         int level = view.askLevel();
         game = new Game(level);
         view.displayGameCommand();
@@ -112,7 +112,6 @@ public class Controller {
                 int level = view.askLevel();
                 game = new Game(level);
                 view.displayGameCommand();
-//                view.displayMaze(game.getMaze(), game.getNbMove());
                 view.displayMaze(game);
                 break;
             case CMD_HELP:
@@ -133,7 +132,7 @@ public class Controller {
      */
     private void treatMove(String dir) {
         switch (dir) {
-            case CMD_UP: //@srv utiliser des constantes.
+            case CMD_UP:
                 game.move(UP);
                 break;
             case CMD_DOWN:

@@ -6,20 +6,18 @@ import esi.g53298.atl.sokoban.model.Position;
 import java.util.Scanner;
 
 /**
- *
+ * To display game in consol
  * @author israelmeiresonne
  */
 public class View {
 
     private Scanner in;
-//    private ViewPlayer layout;
 
     /**
      * Constructor
      */
     public View() {
         this.in = new Scanner(System.in);
-//        ViewPlayer layout = new ViewPlayer(args);
     }
 
     /**
@@ -149,11 +147,4 @@ public class View {
             throw new IllegalArgumentException(errorMsg);
         }
     }
-
-//    public static void main(String args[]) throws FileNotFoundException{
-//        Maze maze = new Maze(1);
-//        View view = new View();
-//        Square[][] sq = maze.getMaze();
-//        view.displayMaze(maze.getMaze());
-//    }
 }

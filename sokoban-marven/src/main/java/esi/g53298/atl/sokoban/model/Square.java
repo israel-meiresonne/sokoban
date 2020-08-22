@@ -4,24 +4,17 @@ import static esi.g53298.atl.sokoban.model.MovableType.BOX;
 import static esi.g53298.atl.sokoban.model.SquareState.*;
 
 /**
+ * Represente a suqre from the maze
  *
  * @author israelmeiresonne
  */
 public class Square {
 
-    private SquareType type;
+    private final SquareType type;
     private Movable movable;
     public static final String ANSI_RED = "\u001B[31m";
     private final String PLAYER_ON_GAOL = "+";
     private final String BOX_ON_GAOL = "*";
-    
-//    public final String STATE_EMPTY_GAOL = "STATE_EMPTY_GAOL";
-//    public final String STATE_BOX_ON_GAOL = "STATE_BOX_ON_GAOL";
-//    public final String STATE_PLAYER_ON_GAOL = "STATE_PLAYER_ON_GAOL";
-//    public final String STATE_EMPTY = "STATE_EMPTY";
-//    public final String STATE_BOX = "STATE_BOX";
-//    public final String STATE_PLAYER = "STATE_PLAYER";
-//    public final String STATE_WALL = "STATE_WALL";
 
     /**
      * Constructor
@@ -34,6 +27,7 @@ public class Square {
     }
 
     /**
+     * Getter for square's movable
      *
      * @return the movable attribut
      */
@@ -42,6 +36,7 @@ public class Square {
     }
 
     /**
+     * Getter for square's type
      *
      * @return the type of the square
      */
@@ -83,7 +78,6 @@ public class Square {
      * already else false
      */
     public boolean isFree() {
-//        return !(type == SquareType.Wall || movable != null);
         return (type != SquareType.Wall && movable == null);
     }
 
@@ -98,12 +92,13 @@ public class Square {
         }
         return false;
     }
-    
+
     /**
      * To evaluate the state of the square
+     *
      * @return the state of the square
      */
-    public SquareState getState(){
+    public SquareState getState() {
         SquareState state = null;
         switch (type) {
             case Goal:
@@ -115,10 +110,10 @@ public class Square {
                 }
                 break;
             case Empty:
-                if(isFree()){
+                if (isFree()) {
                     state = STATE_EMPTY;
                 } else {
-                    switch(movable.geType()){
+                    switch (movable.geType()) {
                         case BOX:
                             state = STATE_BOX;
                             break;

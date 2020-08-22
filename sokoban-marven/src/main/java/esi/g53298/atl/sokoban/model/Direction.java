@@ -1,14 +1,15 @@
 package esi.g53298.atl.sokoban.model;
 
 /**
+ * Represente a direction where to move
  *
  * @author israelmeiresonne
  */
 public enum Direction {
     UP(-1, 0), DOWN(1, 0), LEFT(0, -1), RIGHT(0, 1);
 
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     /**
      * gives each enumeration its row and column value
@@ -24,7 +25,7 @@ public enum Direction {
     /**
      * getter to access the row value of an enumeration
      *
-     * @return
+     * @return the row's value
      */
     public int getRow() {
         return row;
@@ -33,7 +34,7 @@ public enum Direction {
     /**
      * getter to access the column value of an enumeration
      *
-     * @return
+     * @return the column's value
      */
     public int getColumn() {
         return column;

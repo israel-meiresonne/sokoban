@@ -1,6 +1,7 @@
 package esi.g53298.atl.sokoban.model;
 
 /**
+ * all possible state of a Square
  *
  * @author israelmeiresonne
  */
@@ -17,6 +18,7 @@ public enum SquareState {
 
     /**
      * Constructor
+     *
      * @param state the squre state
      */
     private SquareState(String state) {

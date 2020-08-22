@@ -1,13 +1,13 @@
 package esi.g53298.atl.sokoban.model;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
+ * Holds the maze and manage moves of movable
  *
  * @author israelmeiresonne
  */
-public class Maze { //@srv cette classe est tro longue, trop de responsabilités.
+public class Maze {
 
     private Square[][] maze;
     private Position playerPosition;
@@ -21,22 +21,28 @@ public class Maze { //@srv cette classe est tro longue, trop de responsabilités
      * @param gaols squre where is goals
      */
 //    public Maze(int level) throws FileNotFoundException {
-    public Maze(Square[][] maze, Position playerPosition, ArrayList<Square> gaols){
-//        XsbReader reader = new XsbReader(level);
-//        playerPosition = reader.getPlayerPosition();
-//        gaols = reader.getGaols();
-//        maze = reader.getMaze();
+    public Maze(Square[][] maze, Position playerPosition, ArrayList<Square> gaols) {
         this.maze = maze;
         this.playerPosition = playerPosition;
         this.gaols = gaols;
     }
 
     /**
+     * To get maze's height
      *
-     * @return the maze
+     * @return maze's height
      */
-    public Square[][] getMaze() {
-        return maze;
+    public int getHeight() {
+        return maze.length;
+    }
+
+    /**
+     * To get maze's width
+     *
+     * @return maze's width
+     */
+    public int getWidth() {
+        return maze[0].length;
     }
 
     /**

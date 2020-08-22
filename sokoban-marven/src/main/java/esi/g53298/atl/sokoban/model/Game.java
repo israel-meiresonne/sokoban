@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * Model's Facade
  *
  * @author israelmeiresonne
  */
 public class Game implements Subject {
 
     private Maze maze;
-    //@srv les attributs ci-dessous vont dans Gameet sont gérés par Game.
-    private int level;//@srv dans Game
-    private Stack<Move> doneMoves; // @srv dans Game
+    private int level;
+    private Stack<Move> doneMoves;
     private Stack<Move> undoMoves;
-    private int nbMove; //@srv dans Game
+    private int nbMove;
     private boolean resetUndo;
     private ArrayList<Observer> observers;
 
@@ -25,13 +25,12 @@ public class Game implements Subject {
      */
     public Game() {
         observers = new ArrayList<>();
-//        setGame(level);
     }
 
     /**
      * Constructor for terminal displaying
      *
-     * @param level
+     * @param level the level to start
      * @throws FileNotFoundException
      */
     public Game(int level) throws FileNotFoundException {
@@ -39,11 +38,17 @@ public class Game implements Subject {
         setGame(level);
     }
 
+    /**
+     * Initialize a game with a level
+     *
+     * @param level
+     * @throws FileNotFoundException
+     */
     public void setGame(int level) throws FileNotFoundException {
         XsbReader reader = new XsbReader(level);
         Position playerPosition = reader.getPlayerPosition();
         ArrayList<Square> gaols = reader.getGaols();
-        
+
         this.maze = new Maze(reader.getMaze(), playerPosition, gaols);
         this.level = level;
         doneMoves = new Stack<>();
@@ -104,7 +109,7 @@ public class Game implements Subject {
      * @return the square at the given position
      */
     public Square getSquareAt(Position pos) {
-        return maze.getMaze()[pos.getRow()][pos.getColumn()];
+        return maze.getSquare(pos);
     }
 
     /**
@@ -113,7 +118,7 @@ public class Game implements Subject {
      * @return maze's height
      */
     public int getHeight() {
-        return maze.getMaze().length;
+        return maze.getHeight();
     }
 
     /**
@@ -122,22 +127,25 @@ public class Game implements Subject {
      * @return maze's width
      */
     public int getWidth() {
-        return maze.getMaze()[0].length;
+        return maze.getWidth();
     }
 
     /**
+     * Getteer for number of move
      *
      * @return the number of valid move
      */
     public int getNbMove() {
         return nbMove;
     }
-    
+
     /**
      * To get all level playable
+     *
      * @return array of level playable
+     * @throws java.io.FileNotFoundException
      */
-    public List<String> getLevels() throws FileNotFoundException{
+    public List<String> getLevels() throws FileNotFoundException {
         return (new XsbReader()).getLevels();
     }
 
@@ -214,7 +222,7 @@ public class Game implements Subject {
         if (!doneMoves.empty()) {
             Position playerPosition = maze.getPlayerPosition();
             Position newBoxPos = playerPosition; // if a box has been moved at 
-            //the last trun
+            // the last turn
             Move lastMove = doneMoves.pop();
             Direction lastMoveDir = lastMove.getDirection();
             Direction oppositeDir = lastMoveDir.getOpposite();

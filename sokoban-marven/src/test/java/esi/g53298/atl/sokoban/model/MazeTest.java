@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.g53298.atl.sokoban.model;
 
 import static esi.g53298.atl.sokoban.model.Direction.*;
@@ -10,9 +5,7 @@ import static esi.g53298.atl.sokoban.model.MovableType.*;
 import static esi.g53298.atl.sokoban.model.SquareType.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import org.junit.jupiter.api.BeforeEach;
 
 /**
  *

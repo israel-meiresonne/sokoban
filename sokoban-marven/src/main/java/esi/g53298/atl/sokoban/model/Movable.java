@@ -1,42 +1,37 @@
 package esi.g53298.atl.sokoban.model;
 
 /**
+ * Represente element that can be moved throught square
  *
  * @author israelmeiresonne
  */
 public class Movable {
-    private MovableType type;
+
+    private final MovableType type;
     private final String SYMBOL;
-    
+
     /**
      * Constructor
-     * @param type 
+     *
+     * @param type
      */
-    public Movable(MovableType type){
+    public Movable(MovableType type) {
         this.type = type;
         SYMBOL = type.toString();
     }
-    
+
     /**
-     * 
+     * Getter for movable's type
+     *
      * @return the type of the movable object
      */
-    public MovableType geType(){
+    public MovableType geType() {
         return type;
     }
-    
-//    /**
-//     * 
-//     * @return the symbol of the movable object
-//     */
-//    public String getSymbol(){
-//        return SYMBOL;
-//    }
 
     @Override
     public String toString() {
         return SYMBOL;
     }
-    
-    
+
 }

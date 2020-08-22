@@ -1,6 +1,5 @@
 package esi.g53298.atl.sokoban;
 
-import esi.g53298.atl.sokoban.controller.Controller;
 import esi.g53298.atl.sokoban.model.Game;
 import java.io.FileNotFoundException;
 import java.util.Collection;
@@ -16,7 +15,7 @@ import esi.g53298.atl.sokoban.view.HomeRoot;
 import esi.g53298.atl.sokoban.view.LevelRoot;
 
 /**
- *
+ * Application Luncher
  * @author israelmeiresonne
  */
 public class Main extends Application {
@@ -54,6 +53,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * To add bheavor on select level buttons from homeRoot
+     * @param buttons homeRoot's level buttons
+     */
     private void addLevelButtonBehavor(Collection<Button> buttons) {
         buttons.forEach((lvlBtn) -> {
             lvlBtn.setOnAction((ActionEvent e) -> {
@@ -63,12 +66,20 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * To add behavor on quit button from LevelRoot to give up the level
+     * @param quit quit button from LevelRoot
+     */
     private void addQuitButtonBehavor(Button quit) {
         quit.setOnAction((ActionEvent e) -> {
             switchHomeRoot();
         });
     }
 
+    /**
+     * To Switch scene root on levelRoot
+     * @param level the level to start
+     */
     private void switchLevelRoot(int level) {
         try {
             game.setGame(level);
@@ -82,6 +93,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * To Switch scene root on homdeRoot
+     */
     private void switchHomeRoot() {
         game.giveUp();
         mainScene.setRoot(homeRoot);

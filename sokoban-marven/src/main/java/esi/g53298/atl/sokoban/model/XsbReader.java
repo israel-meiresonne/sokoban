@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * File reader and maze builder
  *
  * @author israelmeiresonne
  */
@@ -23,9 +24,8 @@ public class XsbReader {
     /**
      * Constructor
      *
-     * @throws java.io.FileNotFoundException
      */
-    public XsbReader() throws FileNotFoundException {
+    public XsbReader() {
         dir = System.getProperty("user.dir") + "/../level";
         gaols = new ArrayList<>();
     }
@@ -49,7 +49,6 @@ public class XsbReader {
      * @return the maze filled
      */
     private Square[][] buildMaze(int level) throws FileNotFoundException {
-//        String levelDir = System.getProperty("user.dir") + "/../level";
         String fileName = "/level" + level + ".xsb";
         File levelFile = new File(dir + fileName);
 
@@ -69,10 +68,8 @@ public class XsbReader {
         myReader = new Scanner(levelFile);
         Square[][] maze = new Square[nbRow][maxCol];
         int row = 0;
-        while (myReader.hasNextLine()) { //@srv la lecture/décodage du fichier se fait dans une classe dédiée: XsbReader.
+        while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
-//            int nbCol = data.length();
-
             for (int col = 0; col < maxCol; col++) {
                 if (col < data.length()) {
                     char elementChar = data.charAt(col);
@@ -117,26 +114,31 @@ public class XsbReader {
             row++;
         }
         myReader.close();
-
         return maze;
     }
 
     /**
      * Getter for the player's start position
+     *
+     * @return player's position
      */
     public Position getPlayerPosition() {
         return playerPosition;
     }
 
     /**
-     * Getter for the player's goals
+     * Getter for the maze's goals
+     *
+     * @return maze's goals
      */
     public ArrayList<Square> getGaols() {
         return gaols;
     }
 
     /**
-     * Getter for the game's maze
+     * Getter for the maze
+     *
+     * @return the maze
      */
     public Square[][] getMaze() {
         return maze;
@@ -149,9 +151,9 @@ public class XsbReader {
      */
     public List<String> getLevels() {
         List<String> levels = new ArrayList<>();
-        
+
         File f = new File(dir);
-        String[] files = f.list((dir, name) -> {
+        String[] files = f.list((fDir, name) -> {
             Pattern p = Pattern.compile("^level([0-9]+).xsb$");
             Matcher m = p.matcher(name);
             Boolean found = m.find();

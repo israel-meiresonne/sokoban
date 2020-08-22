@@ -1,16 +1,17 @@
 package esi.g53298.atl.sokoban.model;
 
 /**
+ * Represente a move done
  *
  * @author israelmeiresonne
  */
 public class Move {
 
-    private Direction dir;
+    private final Direction dir;
     /**
      * set at true if a box has been moved else false
      */
-    private boolean boxMoved;
+    private final boolean boxMoved;
 
     /**
      * Constructor
@@ -24,14 +25,16 @@ public class Move {
     }
 
     /**
+     * Getter for move's direction
      *
      * @return the direction enum
      */
     public Direction getDirection() {
         return dir;
     }
-    
+
     /**
+     * Getter for boxMoved
      *
      * @return the direction enum
      */
