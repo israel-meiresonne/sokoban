@@ -35,13 +35,16 @@ public class Game implements Subject {
      * @throws FileNotFoundException
      */
     public Game(int level) throws FileNotFoundException {
-//        observers = new ArrayList<>();
         this();
         setGame(level);
     }
 
     public void setGame(int level) throws FileNotFoundException {
-        this.maze = new Maze(level);
+        XsbReader reader = new XsbReader(level);
+        Position playerPosition = reader.getPlayerPosition();
+        ArrayList<Square> gaols = reader.getGaols();
+        
+        this.maze = new Maze(reader.getMaze(), playerPosition, gaols);
         this.level = level;
         doneMoves = new Stack<>();
         undoMoves = new Stack<>();

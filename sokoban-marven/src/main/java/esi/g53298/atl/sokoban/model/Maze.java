@@ -16,14 +16,19 @@ public class Maze { //@srv cette classe est tro longue, trop de responsabilités
     /**
      * Constructor
      *
-     * @param level
-     * @throws java.io.FileNotFoundException if the file don't existe
+     * @param maze the maze
+     * @param playerPosition player's begin position
+     * @param gaols squre where is goals
      */
-    public Maze(int level) throws FileNotFoundException {
-        XsbReader reader = new XsbReader(level);
-        playerPosition = reader.getPlayerPosition();
-        gaols = reader.getGaols();
-        maze = reader.getMaze();
+//    public Maze(int level) throws FileNotFoundException {
+    public Maze(Square[][] maze, Position playerPosition, ArrayList<Square> gaols){
+//        XsbReader reader = new XsbReader(level);
+//        playerPosition = reader.getPlayerPosition();
+//        gaols = reader.getGaols();
+//        maze = reader.getMaze();
+        this.maze = maze;
+        this.playerPosition = playerPosition;
+        this.gaols = gaols;
     }
 
     /**
