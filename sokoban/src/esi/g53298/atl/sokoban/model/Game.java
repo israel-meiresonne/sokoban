@@ -59,6 +59,24 @@ public class Game implements Subject {
     }
 
     /**
+     * Getter for game's done moves
+     *
+     * @return game's done moves
+     */
+    public Stack<Move> getDoneMoves() {
+        return (Stack<Move>) doneMoves.clone();
+    }
+
+    /**
+     * Getter for game's undo moves
+     *
+     * @return game's undo moves
+     */
+    public Stack<Move> getUndoMoves() {
+        return (Stack<Move>) undoMoves.clone();
+    }
+
+    /**
      * Getter for game's number of gaol
      *
      * @return number of gaol

@@ -4,13 +4,16 @@ import esi.g53298.atl.sokoban.Main;
 import esi.g53298.atl.sokoban.model.Direction;
 import static esi.g53298.atl.sokoban.model.Direction.*;
 import esi.g53298.atl.sokoban.model.Game;
+import esi.g53298.atl.sokoban.model.Move;
 import esi.g53298.atl.sokoban.model.Observer;
 import esi.g53298.atl.sokoban.model.Position;
 import esi.g53298.atl.sokoban.model.SquareState;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -22,6 +25,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -39,10 +44,13 @@ public class LevelRoot extends VBox implements Observer {
 
     private GridPane gameGrid;
     private VBox keyValueBox;
+    private VBox doneMovesBox;
+    private VBox undoMovesBox;
 
     private Label goalLB;
     private Label achievedLB;
     private Label nbMoveLB;
+    private HashMap<SquareState, Image> files;
 
     private Button quit;
     private Button restart;
@@ -62,13 +70,17 @@ public class LevelRoot extends VBox implements Observer {
         HBox btnBox = new HBox(10);             // 4, in innerBox
         VBox infoBox = new VBox(20);            // 5, in contentBox
         gameGrid = new GridPane();              // 6, in contentBox
-        VBox moveBox = new VBox(50);            // 7, in contentBox
+        VBox moveBox = new VBox(20);            // 7, in contentBox
 //        VBox keyValueBox = new VBox(10);        // 8, in infoBox
         keyValueBox = new VBox(10);        // 8, in infoBox
         VBox doneMovesLabelBox = new VBox(5);   // 9, in moveBox
         VBox undoMovesLabelBox = new VBox(5);   // 10, in moveBox
-        VBox doneMovesBox = new VBox(10);       // 12, in doneMovesLabelBox
-        VBox undoMovesBox = new VBox(10);       // 11, in undoMovesLabelBox
+//    scrollPane.setFitToHeight(true);
+        ScrollPane doneScrollPane = new ScrollPane();   // 12, in doneMovesLabelBox
+        ScrollPane undoScrollPane = new ScrollPane();   // 11, in undoMovesLabelBox
+
+        doneMovesBox = new VBox(10);       // 14, in doneScrollPane
+        undoMovesBox = new VBox(10);       // 13, in undoScrollPane
 
         // add Menu
         addMenu(this);
@@ -92,10 +104,37 @@ public class LevelRoot extends VBox implements Observer {
         // --- Place keyValueBox in infoBox
         infoBox.getChildren().add(keyValueBox);
 
-        // --- Place moveBox with its children and grand-children
+        // --- Hide scrollPane's scroll bar
+//        scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+        // --- Place doneMovesLabelBox and undoMovesLabelBox in moveBox
+        doneMovesLabelBox.setMaxHeight(200);
+        doneMovesLabelBox.setMinHeight(200);
+        undoMovesLabelBox.setMaxHeight(200);
+        undoMovesLabelBox.setMinHeight(200);
         moveBox.getChildren().addAll(doneMovesLabelBox, undoMovesLabelBox);
-        doneMovesLabelBox.getChildren().add(doneMovesBox);
-        undoMovesLabelBox.getChildren().add(undoMovesBox);
+
+        // --- Place doneScrollPane in doneMovesLabelBox
+        doneScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER); // --- Hide scrollPane's scroll bar
+        doneScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER); // --- Hide scrollPane's scroll bar
+        doneScrollPane.setFitToHeight(true);
+        doneMovesLabelBox.getChildren().add(doneScrollPane);
+
+        // --- Place undoScrollPane in undoMovesLabelBox
+        undoScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER); // --- Hide scrollPane's scroll bar
+        undoScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER); // --- Hide scrollPane's scroll bar
+        undoScrollPane.setFitToHeight(true);
+        undoMovesLabelBox.getChildren().add(undoScrollPane);
+
+        // --- Place doneMovesBox in doneScrollPane
+        doneMovesBox.getStyleClass().add("main-background");
+//        doneMovesBox.getStyleClass().add("border-invisible");
+        doneMovesBox.getStyleClass().add("border-invisible");
+        doneScrollPane.setContent(doneMovesBox);
+
+        // --- Place undoMovesBox in undoScrollPane
+        undoMovesBox.getStyleClass().add("main-background");
+        undoScrollPane.setContent(undoMovesBox);
 
         // --- Title Message
         Label title = new Label("Sokoban 2.0");
@@ -126,22 +165,22 @@ public class LevelRoot extends VBox implements Observer {
         doneMovesLabelBox.getChildren().add(0, lastMvLB);
 
         // --- Add done Moves in doneMovesBox
-        Label lastMv = new Label("Player " + UP);
-        lastMv.getStyleClass().add("info-font");
-        lastMv.getStyleClass().add("button");
-        doneMovesBox.getChildren().add(lastMv);
-
+//        Label lastMv = new Label("Player " + UP);
+//        lastMv.getStyleClass().add("info-font");
+//        lastMv.getStyleClass().add("button");
+//        doneMovesBox.getChildren().add(lastMv);
+//        fillMovePane(doneMovesBox, game.getDoneMoves());
         // --- Add label in undoMovesLabelBox
         Label undoMvLB = new Label("Mouvement annulés");
         undoMvLB.getStyleClass().add("main-font");
         undoMovesLabelBox.getChildren().add(0, undoMvLB);
 
         // --- Add undo Moves in undoMovesBox
-        Label undoMv = new Label("Player " + DOWN + "\nBox " + DOWN);
-        undoMv.getStyleClass().add("info-font");
-        undoMv.getStyleClass().add("button");
-        undoMovesBox.getChildren().add(undoMv);
-
+//        Label undoMv = new Label("Player " + DOWN + "\nBox " + DOWN);
+//        undoMv.getStyleClass().add("info-font");
+//        undoMv.getStyleClass().add("button");
+//        undoMovesBox.getChildren().add(undoMv);
+//        fillMovePane(undoMovesBox, game.getUndoMoves());
         // --- Add quit and restart buttons in btnBox
         quit = new Button("Quitter");
         quit.getStyleClass().add("main-font");
@@ -206,7 +245,28 @@ public class LevelRoot extends VBox implements Observer {
         });
     }
 
+    /**
+     * To fill a move pane with move
+     *
+     * @param moves
+     */
+    private void fillMovePane(Pane pane, Stack<Move> moves) {
+//        pane.getChildren().removeAll(pane.getChildren());
+        removeChildren(pane);
+        moves.forEach(move -> {
+            Direction dir = move.getDirection();
+            String txt = "Player " + dir;
+            txt += (move.getBoxMoved()) ? "\nBox " + dir : "";
+            Label label = new Label(txt);
+            label.getStyleClass().add("info-font");
+            label.getStyleClass().add("button");
+//            label.setPrefWidth(200);
+            pane.getChildren().add(0, label);
+        });
+    }
+
     private void buildMaze(Game game) {
+        removeChildren(gameGrid);
         int nbRow = game.getHeight();
         int nbCol = game.getWidth();
         for (int row = 0; row < nbRow; row++) {
@@ -228,6 +288,9 @@ public class LevelRoot extends VBox implements Observer {
     }
 
     private Image buildImg(SquareState state) throws FileNotFoundException {
+        if (files == null) {
+            files = new HashMap<>();
+        }
         Image img = null;
         String fileName = null;
         String dir = System.getProperty("user.dir") + "/../game-image";
@@ -254,8 +317,13 @@ public class LevelRoot extends VBox implements Observer {
                 fileName = "/wall.png";
                 break;
         }
-        FileInputStream inputstream = new FileInputStream(dir + fileName);
-        img = new Image(inputstream);
+        if ((!fileName.isEmpty()) && files.containsKey(state)) {
+            img = files.get(state);
+        } else {
+            FileInputStream inputstream = new FileInputStream(dir + fileName);
+            img = new Image(inputstream);
+            files.put(state, img);
+        }
         return img;
     }
 
@@ -268,6 +336,15 @@ public class LevelRoot extends VBox implements Observer {
         return quit;
     }
 
+    /**
+     * To remove all Children in a pane
+     *
+     * @param pane a pane to remove Children
+     */
+    private void removeChildren(Pane pane) {
+        pane.getChildren().clear();
+    }
+
     @Override
     public void update(Game game) {
         // --- Update stats label of game
@@ -276,16 +353,20 @@ public class LevelRoot extends VBox implements Observer {
         achievedLB.setText("Nombre d'objectif atteint: " + game.getAchievedGaol() + "/" + nbGaol);
         nbMoveLB.setText("Nombre de déplacements: " + game.getNbMove());
 
+        // --- Add done Moves in doneMovesBox
+        fillMovePane(doneMovesBox, game.getDoneMoves());
+
+        // --- Add undo Moves in undoMovesBox
+        fillMovePane(undoMovesBox, game.getUndoMoves());
+
         // --- fill gameGrid with game's maze
-        gameGrid.getChildren().removeAll(gameGrid.getChildren());
+//        gameGrid.getChildren().removeAll(gameGrid.getChildren());
         buildMaze(game);
 
         if (game.isWin()) {
             Alert alert = new Alert(CONFIRMATION, "Félicitation! Vous avez terminé le niveau!\nVoules vous rejouer la partie?");
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    System.out.print("Alert lunched");
-                    //                        game.restarLevel();
                     restart.fire();
                 } else {
                     quit.fire();
