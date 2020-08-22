@@ -9,10 +9,15 @@ import esi.g53298.atl.sokoban.model.Position;
 import esi.g53298.atl.sokoban.model.SquareState;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import static java.lang.Thread.sleep;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import static javafx.scene.control.Alert.AlertType.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -33,11 +38,18 @@ import javafx.scene.layout.VBox;
 public class LevelRoot extends VBox implements Observer {
 
     private GridPane gameGrid;
+    private VBox keyValueBox;
+
+    private Label goalLB;
+    private Label achievedLB;
+    private Label nbMoveLB;
+
     private Button quit;
     private Button restart;
+
     public final String STAGE_TITLE = "Sokoban 2.0";
-    private static final String CMD_REDO = "r";
-    private static final String CMD_UNDO = "u";
+    private final String CMD_REDO = "r";
+    private final String CMD_UNDO = "u";
 
     public LevelRoot(Game game) {
 //        primaryStage.setTitle("Sokoban 2.0");
@@ -51,7 +63,8 @@ public class LevelRoot extends VBox implements Observer {
         VBox infoBox = new VBox(20);            // 5, in contentBox
         gameGrid = new GridPane();              // 6, in contentBox
         VBox moveBox = new VBox(50);            // 7, in contentBox
-        VBox keyValueBox = new VBox(10);        // 8, in infoBox
+//        VBox keyValueBox = new VBox(10);        // 8, in infoBox
+        keyValueBox = new VBox(10);        // 8, in infoBox
         VBox doneMovesLabelBox = new VBox(5);   // 9, in moveBox
         VBox undoMovesLabelBox = new VBox(5);   // 10, in moveBox
         VBox doneMovesBox = new VBox(10);       // 12, in doneMovesLabelBox
@@ -90,19 +103,19 @@ public class LevelRoot extends VBox implements Observer {
         lvlBox.getChildren().add(0, title);
 
         // --- add Level in infoBox
-        Label level = new Label("Niveau " + game.getLevel());
-        level.getStyleClass().add("main-font");
-        infoBox.getChildren().add(0, level);
+        Label levelLB = new Label("Niveau " + game.getLevel());
+        levelLB.getStyleClass().add("main-font");
+        infoBox.getChildren().add(0, levelLB);
 
         // --- fill keyValueBox with game stats
         int nbGaol = game.getNumberGaol();
-        Label goal = new Label("Nombre d'objectif: " + nbGaol);
-        goal.getStyleClass().add("info-font");
-        Label achieved = new Label("Nombre d'objectif atteint: " + game.getAchievedGaol() + "/" + nbGaol);
-        achieved.getStyleClass().add("info-font");
-        Label nbMove = new Label("Nombre de déplacements: " + game.getNbMove());
-        nbMove.getStyleClass().add("info-font");
-        keyValueBox.getChildren().addAll(goal, achieved, nbMove);
+        goalLB = new Label("Nombre d'objectif: " + nbGaol);
+        goalLB.getStyleClass().add("info-font");
+        achievedLB = new Label("Nombre d'objectif atteint: " + game.getAchievedGaol() + "/" + nbGaol);
+        achievedLB.getStyleClass().add("info-font");
+        nbMoveLB = new Label("Nombre de déplacements: " + game.getNbMove());
+        nbMoveLB.getStyleClass().add("info-font");
+        keyValueBox.getChildren().addAll(goalLB, achievedLB, nbMoveLB);
 
         // --- fill gameGrid with game's maze
         buildMaze(game);
@@ -172,12 +185,13 @@ public class LevelRoot extends VBox implements Observer {
     private void addKeyBoardCommand(Game game) {
         this.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
             String strDir = e.getCode().toString().toLowerCase();
-            System.out.println(strDir);
             try {
                 Direction dir = Direction.stringToDir(strDir);
                 game.move(dir);
-            } catch (IllegalStateException error) {
-//                System.out.println("invalid direction:" + strDir);
+//                System.out.println("move done: " + strDir);
+            } catch (IllegalStateException ex) {
+//                Logger.getLogger(LevelRoot.class.getName()).log(Level.SEVERE, null, ex);
+//                System.out.println("invalid direction: " + strDir);
             }
             switch (strDir) {
                 case CMD_UNDO:
@@ -255,7 +269,28 @@ public class LevelRoot extends VBox implements Observer {
     }
 
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Game game) {
+        // --- Update stats label of game
+        int nbGaol = game.getNumberGaol();
+        goalLB.setText("Nombre d'objectif: " + nbGaol);
+        achievedLB.setText("Nombre d'objectif atteint: " + game.getAchievedGaol() + "/" + nbGaol);
+        nbMoveLB.setText("Nombre de déplacements: " + game.getNbMove());
+
+        // --- fill gameGrid with game's maze
+        gameGrid.getChildren().removeAll(gameGrid.getChildren());
+        buildMaze(game);
+
+        if (game.isWin()) {
+            Alert alert = new Alert(CONFIRMATION, "Félicitation! Vous avez terminé le niveau!\nVoules vous rejouer la partie?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    System.out.print("Alert lunched");
+                    //                        game.restarLevel();
+                    restart.fire();
+                } else {
+                    quit.fire();
+                }
+            });
+        }
     }
 }

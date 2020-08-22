@@ -77,16 +77,16 @@ public enum Direction {
         Direction dir = null;
         switch (strDir) {
             case "UP":
-                dir = DOWN;
-                break;
-            case "DOWN":
                 dir = UP;
                 break;
+            case "DOWN":
+                dir = DOWN;
+                break;
             case "LEFT":
-                dir = RIGHT;
+                dir = LEFT;
                 break;
             case "RIGHT":
-                dir = LEFT;
+                dir = RIGHT;
                 break;
             default:
                 throw new IllegalStateException("The direction don't match any "

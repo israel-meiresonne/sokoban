@@ -88,6 +88,7 @@ public class Main extends Application {
         try {
             game.setGame(level);
             levelRoot = new LevelRoot(game);
+            game.registerObserver(levelRoot);
             addQuitButtonBehavor(levelRoot.getQuit());
             mainScene.setRoot(levelRoot);
             primaryStage.setTitle(levelRoot.STAGE_TITLE);

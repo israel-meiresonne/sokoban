@@ -57,17 +57,19 @@ public class Game implements Subject {
     public int getLevel() {
         return this.level;
     }
-    
+
     /**
      * Getter for game's number of gaol
+     *
      * @return number of gaol
      */
     public int getNumberGaol() {
         return maze.getNumberGaol();
     }
-    
+
     /**
      * Getter for game's number of goal achieved
+     *
      * @return number of goal achieved
      */
     public int getAchievedGaol() {
@@ -143,6 +145,7 @@ public class Game implements Subject {
                 }
             }
         }
+        notifyObserver();
     }
 
     /**
@@ -165,6 +168,7 @@ public class Game implements Subject {
      */
     public void restarLevel() throws FileNotFoundException {
         setGame(level);
+        notifyObserver();
     }
 
     /**
@@ -199,6 +203,7 @@ public class Game implements Subject {
             }
             undoMoves.push(lastMove);
         }
+        notifyObserver();
     }
 
     /**
@@ -211,6 +216,7 @@ public class Game implements Subject {
             move(undoneMove.getDirection());
         }
         resetUndo = true;
+        notifyObserver();
     }
 
     @Override
@@ -226,7 +232,7 @@ public class Game implements Subject {
     @Override
     public void notifyObserver() {
         observers.forEach((obs) -> {
-            obs.update();
+            obs.update(this);
         });
     }
 
