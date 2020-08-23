@@ -13,9 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import esi.g53298.atl.sokoban.view.HomeRoot;
 import esi.g53298.atl.sokoban.view.LevelRoot;
+import java.io.File;
+import javafx.collections.ObservableList;
 
 /**
  * Application Luncher
+ *
  * @author israelmeiresonne
  */
 public class Main extends Application {
@@ -42,19 +45,16 @@ public class Main extends Application {
         addLevelButtonBehavor(homeRoot.getButtons());
         primaryStage.setTitle(homeRoot.STAGE_TITLE);
 
-        mainScene = new Scene(homeRoot, 1100, 800, Color.WHITE);
-//        String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").toExternalForm();
-//        mainScene.getStylesheets().add(css);
-//        String css = this.getClass().getResource("/esi/g53298/atl/sokoban/style.css").getFile();
-//        System.out.print(css);
-//        String dir = System.getProperty("user.dir") + "/../style.css";
-//        mainScene.getStylesheets().add("../style.css");
+        mainScene = new Scene(homeRoot, 1100, 850, Color.WHITE);
+//        mainScene.getStylesheets().add(getClass().getResource("style.css").toString());
+        mainScene.getStylesheets().add("style.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 
     /**
      * To add bheavor on select level buttons from homeRoot
+     *
      * @param buttons homeRoot's level buttons
      */
     private void addLevelButtonBehavor(Collection<Button> buttons) {
@@ -68,6 +68,7 @@ public class Main extends Application {
 
     /**
      * To add behavor on quit button from LevelRoot to give up the level
+     *
      * @param quit quit button from LevelRoot
      */
     private void addQuitButtonBehavor(Button quit) {
@@ -78,6 +79,7 @@ public class Main extends Application {
 
     /**
      * To Switch scene root on levelRoot
+     *
      * @param level the level to start
      */
     private void switchLevelRoot(int level) {
