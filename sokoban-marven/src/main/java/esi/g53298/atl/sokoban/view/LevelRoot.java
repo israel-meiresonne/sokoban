@@ -148,6 +148,14 @@ public class LevelRoot extends VBox implements Observer {
         nbMoveLB.getStyleClass().add("info-font");
         keyValueBox.getChildren().addAll(goalLB, achievedLB, nbMoveLB);
 
+        // --- fill keyValueBox with Command Insttructions
+        String cmdStr = "Touches directionnelles: se deplacer"
+                + "\nU: annuler le dernier mouvement"
+                + "\nR: rétablir un movement";
+        Label cmdLB = new Label(cmdStr);
+        cmdLB.getStyleClass().add("info-font");
+        keyValueBox.getChildren().add(cmdLB);
+
         // --- fill gameGrid with game's maze
         buildMaze(game);
 
@@ -277,8 +285,9 @@ public class LevelRoot extends VBox implements Observer {
 
     /**
      * Provid picture for game element
+     *
      * @param state the state of the square
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      * @return picture of a game eleement
      */
     private Image buildImg(SquareState state) throws FileNotFoundException {

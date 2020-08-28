@@ -13,8 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import esi.g53298.atl.sokoban.view.HomeRoot;
 import esi.g53298.atl.sokoban.view.LevelRoot;
-import java.io.File;
-import javafx.collections.ObservableList;
 
 /**
  * Application Luncher
@@ -45,8 +43,7 @@ public class Main extends Application {
         addLevelButtonBehavor(homeRoot.getButtons());
         primaryStage.setTitle(homeRoot.STAGE_TITLE);
 
-        mainScene = new Scene(homeRoot, 1100, 850, Color.WHITE);
-//        mainScene.getStylesheets().add(getClass().getResource("style.css").toString());
+        mainScene = new Scene(homeRoot, 1150, 850, Color.WHITE);
         mainScene.getStylesheets().add("style.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
