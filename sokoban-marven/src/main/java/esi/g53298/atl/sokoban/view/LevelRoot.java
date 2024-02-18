@@ -296,7 +296,7 @@ public class LevelRoot extends VBox implements Observer {
         }
         Image img = null;
         String fileName = null;
-        String dir = System.getProperty("user.dir") + "/../game-image";
+        String dir = System.getProperty("user.dir") + "/src/main/resources/game-image";
         switch (state) {
             case STATE_EMPTY_GAOL:
                 fileName = "/empty_gaol.png";

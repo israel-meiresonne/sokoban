@@ -44,7 +44,7 @@ public class Main extends Application {
         primaryStage.setTitle(homeRoot.STAGE_TITLE);
 
         mainScene = new Scene(homeRoot, 1150, 850, Color.WHITE);
-        mainScene.getStylesheets().add("style.css");
+        mainScene.getStylesheets().add("style/style.css");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }

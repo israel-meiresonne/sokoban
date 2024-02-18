@@ -26,7 +26,7 @@ public class XsbReader {
      *
      */
     public XsbReader() {
-        dir = System.getProperty("user.dir") + "/../level";
+        dir = System.getProperty("user.dir") + "/src/main/resources/level";
         gaols = new ArrayList<>();
     }
 
