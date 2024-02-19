@@ -1,7 +1,7 @@
 # Sokoban
 <!-- ❌ Don't Delete This Comment ❌
 Project short description:
-  Clone of the famous puzzle game Sokoban
+  Full-stack clone of the famous puzzle game Sokoban
 Project Topics (tags):
   java cli maven javafx
 -->
